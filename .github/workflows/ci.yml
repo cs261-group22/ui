@@ -1,0 +1,138 @@
+on:
+  push:
+    branches:
+      - master
+
+name: CI
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure node environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build app for production
+        run: yarn generate
+        env:
+          BASE_URL: https://api.cs261.callumbloomfield.co.uk
+          NUXT_ENV_API_ROUTE: /api/v1
+          NUXT_HOST: https://ui.cs261.callumbloomfield.co.uk
+          NUXT_PORT: 80
+
+  lint:
+    name: Lint
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure node environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint code
+        run: yarn lint
+
+  test:
+    name: Test
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure node environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Test app
+        run: yarn test
+        env:
+          BASE_URL: https://api.cs261.callumbloomfield.co.uk
+          NUXT_ENV_API_ROUTE: /api/v1
+          NUXT_HOST: https://ui.cs261.callumbloomfield.co.uk
+          NUXT_PORT: 80
+
+  deploy:
+    name: Deploy
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure node environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build app for production
+        run: yarn generate
+        env:
+          BASE_URL: https://api.cs261.callumbloomfield.co.uk
+          NUXT_ENV_API_ROUTE: /api/v1
+          NUXT_HOST: https://ui.cs261.callumbloomfield.co.uk
+          NUXT_PORT: 80
+
+      - name: Copy deployment configuration
+        run: cp ./.appengine/app.yaml ./dist
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Deploy to App Engine
+        run: gcloud app deploy --version 1 --quiet --promote ./dist
