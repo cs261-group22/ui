@@ -54,110 +54,115 @@
           <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                      <tr>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Name
-                        </th>
-
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Code
-                        </th>
-
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Date / Time
-                        </th>
-
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Status
-                        </th>
-
-                        <th
-                          scope="col"
-                          class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      <tr v-for="event in events" :key="event.id">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm font-medium text-gray-900">{{ event.name }}</span>
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm font-medium text-gray-900">{{ event.code }}</span>
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm font-medium text-gray-900">
-                            {{ formatDate(event.starts_at) }} -
-                            {{ formatDate(event.ends_at) }}</span
+                <loader :loading="loadingEvents">
+                  <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                      <thead class="bg-gray-50">
+                        <tr>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                        </td>
+                            Name
+                          </th>
 
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span
-                            v-if="event.is_draft"
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Draft
-                          </span>
+                            Code
+                          </th>
 
-                          <span
-                            v-else
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Live
-                          </span>
-                        </td>
+                            Date / Time
+                          </th>
 
-                        <td class="px-3 py-4 whitespace-nowrap text-sm font-medium">
-                          <router-link
-                            v-if="event.is_draft"
-                            :to="{ name: 'dashboard-events-id-modify', params: { id: event.id } }"
-                            class="text-indigo-600 hover:text-indigo-900 mr-2"
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Modify Questions
-                          </router-link>
+                            Status
+                          </th>
 
-                          <router-link
-                            v-else
-                            :to="{ name: 'dashboard-events-id-results', params: { id: event.id } }"
-                            class="text-indigo-600 hover:text-indigo-900 mr-2"
+                          <th
+                            scope="col"
+                            class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            View Results
-                          </router-link>
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
 
-                          <span>|</span>
+                      <tbody class="bg-white divide-y divide-gray-200">
+                        <tr v-for="event in events" :key="event.id">
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-sm font-medium text-gray-900">{{ event.name }}</span>
+                          </td>
 
-                          <button
-                            class="text-indigo-600 hover:text-indigo-900 ml-2"
-                            @click="confirmDeletion(event.id)"
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-sm font-medium text-gray-900">{{ event.code }}</span>
+                          </td>
+
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-sm font-medium text-gray-900">
+                              {{ formatDate(event.starts_at) }} -
+                              {{ formatDate(event.ends_at) }}</span
+                            >
+                          </td>
+
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <span
+                              v-if="event.is_draft"
+                              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
+                            >
+                              Draft
+                            </span>
+
+                            <span
+                              v-else
+                              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                            >
+                              Live
+                            </span>
+                          </td>
+
+                          <td class="px-3 py-4 whitespace-nowrap text-sm font-medium">
+                            <router-link
+                              v-if="event.is_draft"
+                              :to="{ name: 'dashboard-events-id-modify', params: { id: event.id } }"
+                              class="text-indigo-600 hover:text-indigo-900 mr-2"
+                            >
+                              Modify Questions
+                            </router-link>
+
+                            <router-link
+                              v-else
+                              :to="{
+                                name: 'dashboard-events-id-results',
+                                params: { id: event.id },
+                              }"
+                              class="text-indigo-600 hover:text-indigo-900 mr-2"
+                            >
+                              View Results
+                            </router-link>
+
+                            <span>|</span>
+
+                            <button
+                              class="text-indigo-600 hover:text-indigo-900 ml-2"
+                              @click="confirmDeletion(event.id)"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </loader>
               </div>
             </div>
           </div>
