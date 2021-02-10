@@ -206,7 +206,9 @@ import AuthMixin from '~/mixins/auth';
 
 import { dashboardStore, initialiseStores } from '~/utils/store-accessor';
 
-@Component
+@Component({
+  middleware: ['require-employee'],
+})
 export default class Dashboard extends mixins(UserMixin, AuthMixin) {
   userDropdownVisible = false;
 

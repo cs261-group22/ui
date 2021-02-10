@@ -133,7 +133,7 @@
 <script lang="ts">
 import { Component } from 'nuxt-property-decorator';
 import { UserMixin } from '~/mixins/user';
-import { Team } from '~/types/team';
+import { Team } from '~/types/models/team';
 
 import Loader from '~/components/common/Loader.vue';
 import FormModal from '~/components/common/FormModal.vue';

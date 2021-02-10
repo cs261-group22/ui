@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import { Component, Vue } from 'nuxt-property-decorator';
-import { Team } from '~/types/team';
+import { Team } from '~/types/models/team';
+import { User } from '~/types/models/user';
 
 @Component
 export class UserMixin extends Vue {
@@ -7,27 +9,27 @@ export class UserMixin extends Vue {
     return this.$auth.loggedIn;
   }
 
-  get currentUser() {
+  get currentUser(): User | undefined {
     return this.$auth.user.data;
   }
 
-  get leadsTeams() {
-    return this.isAdmin || this.$auth.user.data.teams.some((team: Team) => team.is_leader);
+  get leadsTeams(): boolean {
+    return this.isAdmin || this.$auth.user?.data?.teams.some((team: Team) => team.is_leader);
   }
 
-  get userId() {
-    return this.$auth.user.data.id;
+  get userId(): number | undefined {
+    return this.$auth.user?.data?.id;
   }
 
-  get userName() {
-    return this.$auth.user.data.name;
+  get userName(): string | undefined {
+    return this.$auth.user?.data?.name;
   }
 
-  get isAdmin(): boolean {
-    return this.$auth.user.data.is_admin;
+  get isAdmin(): boolean | undefined {
+    return this.$auth.user?.data?.is_admin;
   }
 
-  get isGuest(): boolean {
-    return this.$auth.user.data.is_guest;
+  get isGuest(): boolean | undefined {
+    return this.$auth.user?.data?.is_guest;
   }
 }

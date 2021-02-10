@@ -174,7 +174,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { Event } from '~/types/event';
+import { Event } from '~/types/models/event';
 
 import FormModal from '~/components/common/FormModal.vue';
 import ConfirmationModal from '~/components/common/ConfirmationModal.vue';

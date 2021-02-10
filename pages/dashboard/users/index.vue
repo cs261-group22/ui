@@ -105,7 +105,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { User } from '~/types/user';
+import { User } from '~/types/models/user';
 
 import Loader from '~/components/common/Loader.vue';
 import ProgressButon from '~/components/common/ProgressButton.vue';

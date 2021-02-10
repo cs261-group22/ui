@@ -2,34 +2,44 @@
   <div
     class="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center"
   >
-    <loader :loading="!event">
-      <div
-        v-if="event"
-        class="flex flex-col w-full mb-16 justify-center lg:items-start overflow-y-hidden"
-      >
-        <h1 class="my-4 text-4xl md:text-5xl text-primary font-bold leading-tight fade-in">
-          Joining {{ event.name }}
-        </h1>
+    <loader :loading="!fetchedEvent">
+      <div class="flex flex-col w-full mb-16 justify-center lg:items-start overflow-y-hidden">
+        <template v-if="event && !event.is_draft">
+          <h1 class="my-4 text-4xl md:text-5xl text-primary font-bold leading-tight fade-in">
+            Joining {{ event.name }}
+          </h1>
 
-        <p class="leading-normal text-secondary md:text-2xl mb-8 fade-in">
-          {{ event.description }}
-        </p>
+          <p class="leading-normal text-secondary md:text-2xl mb-8 fade-in">
+            {{ event.description }}
+          </p>
 
-        <div class="flex justify-start fade-in">
-          <nuxt-link
-            :to="{ name: 'sign-in', query: { target: code } }"
-            class="mr-4 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary"
-          >
-            Join as employee
-          </nuxt-link>
+          <div class="flex justify-start fade-in">
+            <nuxt-link
+              :to="{ name: 'sign-in', query: { target: code } }"
+              class="mr-4 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary"
+            >
+              Join as employee
+            </nuxt-link>
 
-          <button
-            class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quaternary"
-            @click="joinAsGuest()"
-          >
-            Join as guest
-          </button>
-        </div>
+            <button
+              v-if="event.allow_guests"
+              class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quaternary"
+              @click="joinAsGuest()"
+            >
+              Join as guest
+            </button>
+          </div>
+        </template>
+
+        <template v-else>
+          <h1 class="my-4 text-4xl md:text-5xl text-primary font-bold leading-tight fade-in">
+            Sorry!
+          </h1>
+
+          <p class="leading-normal text-secondary md:text-2xl mb-8 fade-in">
+            You can't join that event at the moment. Please try again later.
+          </p>
+        </template>
       </div>
     </loader>
 
@@ -44,17 +54,22 @@
 </template>
 
 <script lang="ts">
+import { mixins } from 'nuxt-property-decorator';
 import { Component } from 'vue-property-decorator';
 
 import Loader from '~/components/common/Loader.vue';
 import AuthMixin from '~/mixins/auth';
+import { UserMixin } from '~/mixins/user';
+
+import { Event } from '~/types/models/event';
 
 @Component({
   layout: 'landing',
   components: { Loader },
 })
-export default class Join extends AuthMixin {
+export default class Join extends mixins(AuthMixin, UserMixin) {
   event: Event | null = null;
+  fetchedEvent = false;
 
   async created() {
     try {
@@ -63,8 +78,15 @@ export default class Join extends AuthMixin {
       );
 
       this.event = response.data.data;
+
+      // eslint-disable-next-line camelcase
+      if (this.isLoggedIn && (this.event?.allow_guests || !this.isGuest)) {
+        this.$router.push(`/event/${this.code}`);
+      }
     } catch {
-      // todo: show error message
+      // Let the request fail silently
+    } finally {
+      this.fetchedEvent = true;
     }
   }
 

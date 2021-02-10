@@ -15,7 +15,15 @@ export default class AuthMixin extends Vue {
   async loginGuest() {
     await this.requestCookie();
 
-    // todo
+    let response = await this.$axios.$post(process.env.NUXT_ENV_API_ROUTE + '/login/guest');
+
+    this.$auth.setToken('local', 'Bearer ' + response.token);
+    this.$axios.setHeader('Authorization', 'Bearer ' + response.token);
+    this.$auth.ctx.app.$axios.setHeader('Authorization', 'Bearer ' + response.token);
+
+    response = await this.$axios.get(process.env.NUXT_ENV_API_ROUTE + '/user');
+
+    this.$auth.setUser(response.data);
   }
 
   async logout() {
