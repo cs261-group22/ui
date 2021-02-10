@@ -6,12 +6,11 @@
       class="flex flex-col w-full xl:w-2/5 mb-16 justify-center lg:items-start overflow-y-hidden"
     >
       <h1 class="my-4 text-4xl md:text-5xl text-primary font-bold leading-tight fade-in">
-        Lorem ipsum dolor sit amet
+        Welcome to CS261.
       </h1>
 
       <p class="leading-normal text-secondary md:text-2xl mb-8 fade-in">
-        In dui magna, posuere eget, vestibulum et, tempor auctor, justo. Quisque id mi. Vivamus quis
-        mi.
+        To join an event, please enter the invite code provided by your host.
       </p>
 
       <label for="event_code" class="fade-in block mb-1 text-sm font-medium text-gray-700"

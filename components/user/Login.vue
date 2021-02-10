@@ -6,9 +6,13 @@
       </h2>
 
       <p class="mt-2 text-center text-sm text-secondary">
-        <span v-if="isDashboardLogin"
-          >To continue to the host dashboard, enter your details below.</span
-        >
+        <span v-if="isDashboardLogin">
+          {{
+            verifiedEmail
+              ? 'Your account has been verified successfully, please enter your details below.'
+              : 'To continue to the host dashboard, enter your details below.'
+          }}
+        </span>
         <span v-else>To continue to this event, enter your details below.</span>
       </p>
     </div>
@@ -41,13 +45,13 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-between">
+      <!-- <div class="flex items-center justify-between">
         <div class="text-sm">
           <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
             Forgot your password?
           </a>
         </div>
-      </div>
+      </div> -->
 
       <div>
         <button
@@ -94,10 +98,8 @@ export default class Login extends AuthMixin {
     return this.isDashboardLogin ? 'Host Dashboard Login' : 'Employee Login';
   }
 
-  requestLink() {
-    this.$axios.post(process.env.NUXT_ENV_API_ROUTE + '/email/resend', {
-      email_address: this.email,
-    });
+  get verifiedEmail() {
+    return this.$route.query.verified === '1';
   }
 }
 </script>
