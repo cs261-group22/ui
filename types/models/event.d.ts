@@ -5,9 +5,12 @@ export interface Event {
   id: number;
   name: string;
   code: string;
-  starts_at?: string;
   ends_at?: string;
-  host?: User;
-  allow_guests: boolean;
+  starts_at?: string;
   is_draft: boolean;
+  allow_guests: boolean;
+  max_sessions: number;
+
+  hosts?: User[];
+  
 }
