@@ -17,7 +17,7 @@
       </p>
     </div>
 
-    <div class="mt-8 space-y-6 w-96">
+    <div class="mt-8 space-y-6 w-full md:w-96">
       <div class="rounded-md shadow-sm">
         <div class="mb-6">
           <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>

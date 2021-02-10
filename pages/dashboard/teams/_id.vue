@@ -1,8 +1,10 @@
 <template>
   <div>
     <header class="bg-white shadow">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between w-full">
-        <h1 v-if="!loadingTeam" class="text-3xl font-bold leading-tight text-primary">
+      <div
+        class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between w-full flex-col lg:flex-row"
+      >
+        <h1 v-if="!loadingTeam" class="text-3xl font-bold leading-tight text-primary mb-2 lg:mb-0">
           Manage {{ team.name }}
         </h1>
 

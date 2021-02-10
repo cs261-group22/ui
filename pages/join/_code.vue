@@ -13,10 +13,10 @@
             {{ event.description }}
           </p>
 
-          <div class="flex justify-start fade-in">
+          <div class="flex flex-col sm:flex-row justify-start fade-in">
             <nuxt-link
               :to="{ name: 'sign-in', query: { target: code } }"
-              class="mr-4 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary"
+              class="mb-4 sm:mb-0 sm:mr-4 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary"
             >
               Join as employee
             </nuxt-link>

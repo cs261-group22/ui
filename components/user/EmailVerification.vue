@@ -11,7 +11,7 @@
         </p>
       </div>
 
-      <div class="mt-8 space-y-6 w-96">
+      <div class="mt-8 space-y-6 w-full md:w-96">
         <input type="hidden" name="remember" value="true" />
 
         <div class="rounded-md shadow-sm">
