@@ -3,12 +3,13 @@
     <header class="bg-white shadow">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between w-full">
         <h1 v-if="!loadingTeam" class="text-3xl font-bold leading-tight text-primary">
-          Manage {{ team.name }} Members
+          Manage {{ team.name }}
         </h1>
 
         <div class="flex">
           <input
             v-model="email"
+            required
             type="text"
             name="email"
             placeholder="Email address"
