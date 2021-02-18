@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <nav class="bg-primary">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          <div class="flex items-center">
+          <p class="text-white font-bold">CS261 Host Dashboard</p>
+          <p class="flex items-center">
             <div class="hidden md:block">
               <div class="flex items-baseline space-x-4">
                 <router-link
@@ -16,7 +17,7 @@
 
                 <router-link
                   to="/dashboard/events"
-                  :class="{ 'bg-primarydark': $route.name === 'dashboard-events' }"
+                  :class="{ 'bg-primarydark': $route.name.startsWith('dashboard-events') }"
                   class="text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Events
@@ -25,7 +26,7 @@
                 <router-link
                   v-if="leadsTeams"
                   to="/dashboard/teams"
-                  :class="{ 'bg-primarydark': $route.name === 'dashboard-teams' }"
+                  :class="{ 'bg-primarydark': $route.name.startsWith('dashboard-teams') }"
                   class="text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Teams
@@ -41,16 +42,16 @@
                 </router-link>
               </div>
             </div>
-          </div>
+          </p>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
               <div class="ml-3 relative">
                 <div>
                   <button
-                    class="max-w-xs rounded-full flex items-center text-sm"
+                    class="max-w-xs rounded-md flex items-center text-sm bg-primarydark"
                     @click="toggleUserDropdown"
                   >
-                    <span class="text-white font-bold mx-4 hover:underline">{{ userName }}</span>
+                    <span class="text-white font-bold mx-4 py-2 hover:underline">{{ userName }}</span>
                   </button>
                 </div>
 
@@ -175,7 +176,7 @@ import AuthMixin from '~/mixins/auth';
 import { dashboardStore, initialiseStores } from '~/utils/store-accessor';
 
 @Component({
-  middleware: ['require-employee'],
+  middleware: ['auth', 'require-employee'],
 })
 export default class Dashboard extends mixins(UserMixin, AuthMixin) {
   mobileMenuOpen = false;
