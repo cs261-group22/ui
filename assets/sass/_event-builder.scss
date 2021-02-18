@@ -1,0 +1,92 @@
+// Page styles
+.question-block {
+  max-width: 750px;
+}
+
+// Date picker styles
+.vdatetime-time-picker__item--selected {
+  color: rgb(38, 70, 83) !important;
+}
+
+.vdatetime-popup__header {
+  background: rgb(38, 70, 83) !important;
+}
+
+.vdatetime-calendar__month__day--selected > span > span,
+.vdatetime-calendar__month__day--selected:hover > span > span {
+  background: rgb(38, 70, 83) !important;
+}
+
+.vdatetime-popup__actions__button {
+  font-weight: bold !important;
+  color: rgb(122, 114, 112) !important;
+}
+
+// Sidebar styles
+.sidebar {
+  display: flex;
+  height: 95.45vh;
+  max-width: 22rem;
+  flex-direction: column;
+
+  .sidebar-header {
+    // height: 5.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(
+      to top,
+      theme('colors.primarydarker') 0%,
+      theme('colors.primarydark') 30%,
+      theme('colors.primarydark') 100%
+    );
+  }
+
+  .sidebar-content {
+    flex-direction: column;
+  }
+}
+
+.sidebar-nav {
+  > li {
+    width: 16rem;
+
+    &:not(:last-child) {
+      position: relative;
+
+      &:after {
+        left: 0;
+        right: 0;
+        height: 1px;
+        content: '';
+        position: absolute;
+        background-size: 8px 1px;
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.4) 0px,
+          rgba(255, 255, 255, 0) 1px,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+    }
+
+    > a {
+      display: flex;
+      cursor: pointer;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      align-items: center;
+      text-transform: uppercase;
+      color: theme('colors.white');
+      justify-content: space-between;
+      letter-spacing: theme('letterSpacing.widest');
+    }
+
+    &:hover,
+    &.active {
+      > a {
+        color: theme('colors.quinary');
+      }
+    }
+  }
+}
