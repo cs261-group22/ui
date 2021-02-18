@@ -4,7 +4,7 @@
       <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <p class="text-white font-bold">CS261 Host Dashboard</p>
-          <p class="flex items-center">
+          <div class="flex items-center">
             <div class="hidden md:block">
               <div class="flex items-baseline space-x-4">
                 <router-link
@@ -42,7 +42,8 @@
                 </router-link>
               </div>
             </div>
-          </p>
+          </div>
+
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
               <div class="ml-3 relative">
@@ -51,7 +52,9 @@
                     class="max-w-xs rounded-md flex items-center text-sm bg-primarydark"
                     @click="toggleUserDropdown"
                   >
-                    <span class="text-white font-bold mx-4 py-2 hover:underline">{{ userName }}</span>
+                    <span class="text-white font-bold mx-4 py-2 hover:underline">{{
+                      userName
+                    }}</span>
                   </button>
                 </div>
 
