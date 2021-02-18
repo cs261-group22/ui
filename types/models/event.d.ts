@@ -1,3 +1,4 @@
+import { Question } from './question';
 import { User } from './user';
 
 /* eslint-disable camelcase */
@@ -12,5 +13,5 @@ export interface Event {
   max_sessions: number;
 
   hosts?: User[];
-  
+  questions: Question[];
 }
