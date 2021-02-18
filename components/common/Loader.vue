@@ -35,7 +35,8 @@
         </g>
       </svg>
     </div>
-    <slot v-else></slot>
+
+    <slot v-if="!loading"></slot>
   </div>
 </template>
 
