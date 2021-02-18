@@ -77,7 +77,14 @@
                             scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Date / Time
+                            Starts at
+                          </th>
+
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Ends at
                           </th>
 
                           <th
@@ -108,7 +115,12 @@
 
                           <td class="px-6 py-4 whitespace-nowrap">
                             <span class="text-sm font-medium text-gray-900">
-                              {{ formatDate(event.starts_at) }} -
+                              {{ formatDate(event.starts_at) }}</span
+                            >
+                          </td>
+
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-sm font-medium text-gray-900">
                               {{ formatDate(event.ends_at) }}</span
                             >
                           </td>
@@ -135,7 +147,7 @@
                               :to="{ name: 'dashboard-events-id-modify', params: { id: event.id } }"
                               class="text-indigo-600 hover:text-indigo-900 mr-2"
                             >
-                              Modify Questions
+                              Configure Event
                             </router-link>
 
                             <router-link
@@ -146,7 +158,7 @@
                               }"
                               class="text-indigo-600 hover:text-indigo-900 mr-2"
                             >
-                              View Results
+                              View Responses
                             </router-link>
 
                             <span>|</span>
