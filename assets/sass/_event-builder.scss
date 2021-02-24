@@ -25,13 +25,14 @@
 // Sidebar styles
 .sidebar {
   display: flex;
-  height: 95.45vh;
-  max-width: 22rem;
   flex-direction: column;
+
+  @media (min-width: 768px) {
+    max-width: 22rem;
+  }
 
   .sidebar-header {
     // height: 5.1rem;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     background: linear-gradient(
@@ -49,24 +50,26 @@
 
 .sidebar-nav {
   > li {
-    width: 16rem;
+    @media (min-width: 768px) {
+      width: 16rem;
 
-    &:not(:last-child) {
-      position: relative;
+      &:not(:last-child) {
+        position: relative;
 
-      &:after {
-        left: 0;
-        right: 0;
-        height: 1px;
-        content: '';
-        position: absolute;
-        background-size: 8px 1px;
-        background-image: linear-gradient(
-          to right,
-          rgba(255, 255, 255, 0.4) 0px,
-          rgba(255, 255, 255, 0) 1px,
-          rgba(255, 255, 255, 0) 100%
-        );
+        &:after {
+          left: 0;
+          right: 0;
+          height: 1px;
+          content: '';
+          position: absolute;
+          background-size: 8px 1px;
+          background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.4) 0px,
+            rgba(255, 255, 255, 0) 1px,
+            rgba(255, 255, 255, 0) 100%
+          );
+        }
       }
     }
 

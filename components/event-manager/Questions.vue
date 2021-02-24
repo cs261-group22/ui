@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow">
+  <div class="flex-grow min-h-screen">
     <header class="bg-white shadow">
       <div class="h-20 py-6 px-4 sm:px-6 lg:px-8 w-full">
         <div class="flex justify-between">

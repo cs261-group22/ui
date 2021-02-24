@@ -1,14 +1,14 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex flex-col md:flex-row w-full h-full">
     <div class="sidebar bg-primarydark">
-      <div class="sidebar-header h-24 lg:h-20 px-6 lg:px-8">
+      <div class="sidebar-header h-24 lg:h-20 px-6 lg:px-8 hidden md:flex">
         <p class="font-medium text-white">{{ truncatedEventName }}</p>
 
         <p class="text-xs text-grey-500">Draft Event</p>
       </div>
 
-      <div class="sidebar-content px-6 py-4 lg:px-8">
-        <ul class="sidebar-nav list-reset">
+      <div class="sidebar-content md:px-6 md:py-4 lg:px-8">
+        <ul class="flex justify-evenly md:block sidebar-nav list-reset">
           <li :class="{ active: eventTab === EventTab.SETTINGS }">
             <router-link :to="`?tab=${EventTab.SETTINGS}`"> Settings </router-link>
           </li>

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-grow">
+  <div class="flex-grow min-h-screen">
     <header class="bg-white shadow">
-      <div class="h-24 flex items-center lg:h-20 max-w-7xl py-6 px-4 sm:px-6 lg:px-8 w-full">
+      <div class="md:h-24 flex items-center lg:h-20 max-w-7xl py-6 px-4 sm:px-6 lg:px-8 w-full">
         <h1 class="text-2xl font-bold">Manage Event Settings</h1>
       </div>
     </header>

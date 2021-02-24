@@ -1,9 +1,9 @@
 <template>
-  <div class="flex-grow">
+  <div class="flex-grow min-h-screen">
     <header class="bg-white shadow">
-      <div class="h-24 lg:h-20 py-6 px-4 sm:px-6 lg:px-8 w-full">
-        <div class="flex align-items justify-between">
-          <p class="text-2xl font-bold">Manage Event Hosts</p>
+      <div class="lg:h-20 py-6 px-4 sm:px-6 lg:px-8 w-full">
+        <div class="flex align-items justify-between flex-col lg:flex-row">
+          <p class="text-2xl font-bold mb-4 lg:mb-0">Manage Event Hosts</p>
 
           <div class="flex">
             <input
