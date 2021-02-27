@@ -16,14 +16,14 @@
           <div class="flex flex-col sm:flex-row justify-start fade-in">
             <nuxt-link
               :to="{ name: 'sign-in', query: { target: code } }"
-              class="mb-4 sm:mb-0 sm:mr-4 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary"
+              class="mb-4 sm:mb-0 sm:mr-4 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary hover:bg-quinarylight focus:bg-quinarydark"
             >
               Join as employee
             </nuxt-link>
 
             <button
               v-if="event.allow_guests"
-              class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quaternary"
+              class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quaternary hover:bg-quaternarylight focus:bg-quaternarydark"
               @click="joinAsGuest()"
             >
               Join as guest

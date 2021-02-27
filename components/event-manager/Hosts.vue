@@ -23,25 +23,25 @@
 
     <div class="m-6 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
       <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
+        <thead class="bg-primarydark">
           <tr>
             <th
               scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
             >
               Name
             </th>
 
             <th
               scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
             >
               Email
             </th>
 
             <th
               scope="col"
-              class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              class="px-3 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
             >
               Actions
             </th>

@@ -40,7 +40,7 @@
         <h1 class="text-3xl font-bold leading-tight text-primary">Manage Your Events</h1>
 
         <button
-          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-quinary"
+          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-quinary hover:bg-quinarylight focus:bg-quinarydark"
           @click="creatingEvent = true"
         >
           Create new event
@@ -57,46 +57,46 @@
                 <loader :loading="loadingEvents">
                   <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
-                      <thead class="bg-gray-50">
+                      <thead class="bg-primarydark">
                         <tr>
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Name
                           </th>
 
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Code
                           </th>
 
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Starts at
                           </th>
 
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Ends at
                           </th>
 
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Status
                           </th>
 
                           <th
                             scope="col"
-                            class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-3 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Actions
                           </th>
@@ -145,7 +145,7 @@
                             <router-link
                               v-if="event.is_draft"
                               :to="{ name: 'dashboard-events-id-modify', params: { id: event.id } }"
-                              class="text-indigo-600 hover:text-indigo-900 mr-2"
+                              class="text-quinary hover:text-quinarydark mr-2"
                             >
                               Configure Event
                             </router-link>
@@ -156,7 +156,7 @@
                                 name: 'dashboard-events-id-results',
                                 params: { id: event.id },
                               }"
-                              class="text-indigo-600 hover:text-indigo-900 mr-2"
+                              class="text-quinary hover:text-quinarydark mr-2"
                             >
                               View Responses
                             </router-link>
@@ -164,7 +164,7 @@
                             <span>|</span>
 
                             <button
-                              class="text-indigo-600 hover:text-indigo-900 ml-2"
+                              class="text-quinary hover:text-quinarydark ml-2"
                               @click="confirmDeletion(event.id)"
                             >
                               Delete

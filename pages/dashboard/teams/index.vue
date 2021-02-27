@@ -41,7 +41,7 @@
 
         <button
           v-if="isAdmin"
-          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-quinary"
+          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-quinary hover:bg-quinarylight focus:bg-quinarydark"
           @click="creatingTeam = true"
         >
           Add new team
@@ -58,25 +58,25 @@
                 <loader :loading="loadingTeams">
                   <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
-                      <thead class="bg-gray-50">
+                      <thead class="bg-primarydark">
                         <tr>
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Name
                           </th>
 
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Department
                           </th>
 
                           <th
                             scope="col"
-                            class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-3 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Actions
                           </th>
@@ -100,7 +100,7 @@
                           <td class="px-3 py-4 whitespace-nowrap text-sm font-medium">
                             <router-link
                               :to="{ name: 'dashboard-teams-id', params: { id: team.id } }"
-                              class="text-indigo-600 hover:text-indigo-900 mr-2"
+                              class="text-quinary hover:text-quinarydark mr-2"
                             >
                               Manage Members
                             </router-link>
@@ -109,7 +109,7 @@
                               <span>|</span>
 
                               <button
-                                class="text-indigo-600 hover:text-indigo-900 ml-2"
+                                class="text-quinary hover:text-quinarydark ml-2"
                                 @click="confirmDeletion(team.id)"
                               >
                                 Delete

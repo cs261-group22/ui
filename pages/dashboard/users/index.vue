@@ -14,10 +14,10 @@
             type="text"
             name="email"
             placeholder="Email address"
-            class="block shadow-sm sm:text-sm border-gray-300 rounded-md mr-6 w-96"
+            class="block shadow-sm sm:text-sm border-gray-300 rounded-md mr-6 w-96 focus:border-primary focus:ring-primary"
           />
 
-          <progress-buton :loading="addingUser" @click="addUser"> Add user </progress-buton>
+          <progress-buton :loading="addingUser" @click="addUser" class="bg-quinary hover:bg-quinarylight focus:bg-quinarydark"> Add user </progress-buton>
         </div>
       </div>
     </header>
@@ -31,25 +31,25 @@
                 <loader :loading="loadingUsers">
                   <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
-                      <thead class="bg-gray-50">
+                      <thead class="bg-primarydark">
                         <tr>
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Name
                           </th>
 
                           <th
                             scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Status
                           </th>
 
                           <th
                             scope="col"
-                            class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="px-3 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                           >
                             Actions
                           </th>
@@ -87,7 +87,7 @@
 
                           <td class="px-3 py-4 whitespace-nowrap text-sm font-medium">
                             <span
-                              class="text-indigo-600 hover:text-indigo-900 mr-4 cursor-pointer"
+                              class="text-quinary hover:text-quinarydark mr-4 cursor-pointer"
                               @click="removePrivileges(user)"
                             >
                               Remove admin privileges

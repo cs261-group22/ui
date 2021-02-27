@@ -1,19 +1,19 @@
 <template>
   <div
-    class="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center"
+    class="container bg-none pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center"
   >
     <div
       class="flex flex-col w-full xl:w-2/5 mb-16 justify-center lg:items-start overflow-y-hidden"
     >
-      <h1 class="my-4 text-4xl md:text-5xl text-primary font-bold leading-tight fade-in">
-        Welcome to CS261.
+      <h1 class="my-4 text-4xl md:text-5xl text-black font-bold font-sans leading-tight fade-in">
+        FEEDBACK APP
       </h1>
 
-      <p class="leading-normal text-secondary md:text-2xl mb-8 fade-in">
+      <p class="leading-normal text-primarydark md:text-2xl mb-8 fade-in">
         To join an event, please enter the invite code provided by your host.
       </p>
 
-      <label for="event_code" class="fade-in block mb-1 text-sm font-medium text-gray-700"
+      <label for="event_code" class="fade-in block mb-1 text-sm font-medium text-white"
         >Invite code</label
       >
 
@@ -23,12 +23,12 @@
           type="text"
           name="event_code"
           placeholder="e.g a1ZnL"
-          class="flex-grow focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md mr-4"
+          class="flex-grow border-primary focus:ring-primary block w-full shadow-sm sm:text-sm rounded-md mr-4"
         />
 
         <router-link
           :to="{ name: 'join-code', params: { code: surveyCode } }"
-          class="flex-none whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-white font-medium bg-quinary"
+          class="flex-none whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-white font-medium bg-quinary hover:bg-quinarylight focus:bg-quinarydark"
         >
           Join Event
         </router-link>

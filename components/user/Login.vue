@@ -10,10 +10,10 @@
           {{
             verifiedEmail
               ? 'Your account has been verified successfully, please enter your details below.'
-              : 'To continue to the host dashboard, enter your details below.'
+              : 'To continue to this event, enter your details below. If you do have a registered account, please contact a system admin.'
           }}
         </span>
-        <span v-else>To continue to this event, enter your details below.</span>
+        <span v-else>To continue to this event, enter your details below. If you do have a registered account, please contact a system admin.</span>
       </p>
     </div>
 
@@ -26,7 +26,7 @@
             type="email"
             name="email"
             autocomplete="email"
-            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+            class="mt-1 border-primary focus:ring-primary block w-full shadow-sm sm:text-sm rounded-md"
             required
           />
         </div>
@@ -38,7 +38,7 @@
             name="password"
             type="password"
             autocomplete="current-password"
-            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+            class="mt-1  border-primary focus:ring-primary block w-full shadow-sm sm:text-sm rounded-md"
             placeholder="Password"
             required
           />
@@ -55,7 +55,7 @@
 
       <div>
         <button
-          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-quinary hover:bg-quinarylight focus:outline-none focus:bg-quinarydark"
           @click="submit"
         >
           Sign in

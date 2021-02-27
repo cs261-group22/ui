@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <div class="h-screen pb-14 bg-right bg-cover bg-landing">
+    <div class="h-screen pb-14 bg-right bg-cover bg-white">
       <div class="w-full container mx-auto p-6">
         <div class="w-full flex items-center justify-between">
           <nuxt-link
             to="/"
-            class="flex items-center text-primary no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+            class="flex items-center text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
           >
             CS261
           </nuxt-link>
@@ -13,7 +13,7 @@
           <div class="flex w-1/2 justify-end content-center">
             <nuxt-link
               :to="{ name: 'sign-in', query: { target: 'dashboard' } }"
-              class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary"
+              class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-quinary hover:bg-quinarylight focus:bg-quinarydark"
             >
               Host Dashboard
             </nuxt-link>
