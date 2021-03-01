@@ -14,5 +14,14 @@ export default class Default extends Vue {
   created() {
     initialiseStores(this.$store);
   }
+
+  head() {
+    return {
+      bodyAttrs: {
+        class: 'leading-normal tracking-normal text-gray-900',
+        style: "font-family: 'Source Sans Pro', sans-serif",
+      },
+    };
+  }
 }
 </script>
