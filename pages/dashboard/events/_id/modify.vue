@@ -29,10 +29,16 @@
     </div>
 
     <loader :loading="event === null" class="w-full">
-      <hosts v-if="eventTab === EventTab.HOSTS" v-model="event" />
-      <publish v-if="eventTab === EventTab.PUBLISH" :event="event" />
-      <settings v-if="eventTab === EventTab.SETTINGS" v-model="event" />
-      <questions v-if="eventTab === EventTab.QUESTIONS" v-model="event" />
+      <transition-group name="page">
+        <hosts v-if="eventTab === EventTab.HOSTS" :key="EventTab.HOSTS" v-model="event" />
+        <publish v-if="eventTab === EventTab.PUBLISH" :key="EventTab.PUBLISH" :event="event" />
+        <settings v-if="eventTab === EventTab.SETTINGS" :key="EventTab.SETTINGS" v-model="event" />
+        <questions
+          v-if="eventTab === EventTab.QUESTIONS"
+          :key="EventTab.QUESTIONS"
+          v-model="event"
+        />
+      </transition-group>
     </loader>
   </div>
 </template>
