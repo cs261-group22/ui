@@ -187,6 +187,10 @@ export default class Dashboard extends mixins(UserMixin, AuthMixin) {
 
   created() {
     initialiseStores(this.$store);
+
+    if (!this.isLoggedIn) {
+      this.$router.push('/sign-in?target=dashboard');
+    }
   }
 
   head() {
@@ -204,6 +208,7 @@ export default class Dashboard extends mixins(UserMixin, AuthMixin) {
 
   logoutUser() {
     this.logout();
+    this.$router.push('/');
   }
 
   get pageName() {

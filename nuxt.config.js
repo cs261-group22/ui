@@ -57,12 +57,7 @@ export default {
 
   // Auth module config
   auth: {
-    redirect: {
-      login: '/sign-in',
-      logout: '/',
-      callback: '/',
-      home: '/survey',
-    },
+    redirect: false,
     strategies: {
       local: {
         endpoints: {
