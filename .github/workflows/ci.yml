@@ -119,9 +119,9 @@ jobs:
       - name: Build app for production
         run: yarn generate
         env:
-          BASE_URL: https://api.cs261.callumbloomfield.co.uk
+          BASE_URL: https://api.feedbank.tech
           NUXT_ENV_API_ROUTE: /api/v1
-          NUXT_HOST: https://ui.cs261.callumbloomfield.co.uk
+          NUXT_HOST: https://feedbank.tech
           NUXT_PORT: 80
 
       - name: Copy deployment configuration
