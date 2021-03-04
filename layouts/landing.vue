@@ -7,7 +7,7 @@
             to="/"
             class="flex items-center text-primary no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
           >
-            CS261
+            FeedBank
           </nuxt-link>
 
           <div class="flex w-1/2 justify-end content-center">

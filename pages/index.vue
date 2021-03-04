@@ -6,7 +6,7 @@
       class="flex flex-col w-full xl:w-2/5 mb-16 justify-center lg:items-start overflow-y-hidden"
     >
       <h1 class="my-4 text-4xl md:text-5xl text-primary font-bold leading-tight fade-in">
-        Welcome to CS261.
+        Welcome to FeedBank.
       </h1>
 
       <p class="leading-normal text-secondary md:text-2xl mb-8 fade-in">
@@ -40,7 +40,7 @@
     </div>
 
     <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-      <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; CS261 Group 22 </a>
+      <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; FeedBank </a>
     </div>
   </div>
 </template>

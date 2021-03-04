@@ -3,7 +3,7 @@
     <nav class="bg-primary">
       <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          <p class="text-white font-bold">CS261 Host Dashboard</p>
+          <p class="text-white font-bold">FeedBank Dashboard</p>
           <div class="flex items-center">
             <div class="hidden md:block">
               <div class="flex items-baseline space-x-4">

@@ -7,7 +7,7 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'CS261',
+    title: 'FeedBank',
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
