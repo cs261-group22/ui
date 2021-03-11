@@ -40,7 +40,9 @@
             </nuxt-link>
 
             <vue-recaptcha size="invisible" :sitekey="recaptchaKey" @verify="joinAsGuest">
-              <button v-if="event.allow_guests" class="gradient-button">Join as guest</button>
+              <button v-if="event.allow_guests" class="gradient-button w-full sm:w-auto">
+                Join as guest
+              </button>
             </vue-recaptcha>
           </div>
         </template>

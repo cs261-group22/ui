@@ -153,7 +153,7 @@ export default class Default extends Vue {
 
 <style lang="scss" scoped>
 .content {
-  height: 30vh;
+  height: 35vh;
 
   @media (min-width: 640px) {
     height: 16vh;
