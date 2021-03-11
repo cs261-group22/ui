@@ -1,15 +1,13 @@
 <template>
-  <div
-    class="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center"
-  >
-    <div
-      class="flex flex-col w-full xl:w-2/5 mb-16 justify-center lg:items-start overflow-y-hidden"
-    >
-      <h1 class="my-4 text-4xl md:text-5xl text-primary font-bold leading-tight fade-in">
+  <div>
+    <div class="mb-8 max-w-2xl">
+      <h1
+        class="mb-1 text-4xl md:text-5xl text-white font-bold leading-tight fade-in font-serif font-serif"
+      >
         Welcome to FeedBank.
       </h1>
 
-      <p class="leading-normal text-secondary md:text-2xl mb-8 fade-in">
+      <p class="leading-normal text-secondarylight md:text-xl mb-4 md:mb-8 fade-in font-semibold">
         To join an event, please enter the invite code provided by your host.
       </p>
 
@@ -27,20 +25,43 @@
         />
 
         <router-link
-          :to="{ name: 'join-code', params: { code: surveyCode } }"
-          class="flex-none whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-white font-medium bg-quinary"
+          :to="{ name: 'join-code', params: { code: surveyCode || ' ' } }"
+          :disabled="!surveyCode.length"
+          class="gradient-button"
         >
           Join Event
         </router-link>
       </div>
-    </div>
 
-    <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
-      <img class="w-5/6 mx-auto lg:mr-0 fade-in" src="/devices.svg" />
-    </div>
+      <Portal to="landing-footer">
+        <div class="flex flex-col items-center lg:flex-row">
+          <div class="w-full lg:w-1/2 lg:mr-12 mb-8 lg:mb-0">
+            <p class="text-3xl font-bold font-serif mb-2">FeedBank for Event Hosts</p>
 
-    <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-      <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; FeedBank </a>
+            <p class="text-lg text-justify mb-6">
+              FeedBank allows you to collect actionable feedback for your events in realtime,
+              helping to identify and correct issues for your attendees.
+            </p>
+
+            <ul class="list-disc text-lg ml-8 mb-6">
+              <li>Build custom feedback questionaires to gather feedback from users</li>
+              <li>View feedback in real-time, as it is submitted by attendees</li>
+              <li>Collate responses by question or attendee</li>
+              <li>Perform advanced analysis of attendee mood over the course of the event</li>
+              <li>Export received feedback as a spreadsheet for external usage</li>
+            </ul>
+
+            <p class="text-lg">
+              <span class="font-bold">Interested?</span> Ask your team leader to send you an invite
+              to get started.
+            </p>
+          </div>
+
+          <div class="w-full flex justify-center lg:block lg:w-1/2 lg:ml-12 mb-8 lg:mb-0">
+            <img src="~/assets/images/ui.png" class="rounded-md shadow-lg" width="550px" />
+          </div>
+        </div>
+      </Portal>
     </div>
   </div>
 </template>

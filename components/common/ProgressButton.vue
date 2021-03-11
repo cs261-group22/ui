@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-quinary"
-    @click="propagateClick"
-  >
+  <button class="gradient-button" :class="{ 'is-compact': compact }" @click="propagateClick">
     <svg v-show="loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" height="20px">
       <defs>
         <linearGradient id="a" x1="8.042%" y1="0%" x2="65.682%" y2="23.865%">
@@ -50,6 +47,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class Loader extends Vue {
   @Prop({ type: Boolean, required: false, default: false })
   loading!: boolean;
+
+  @Prop({ type: Boolean, required: false, default: false })
+  compact!: boolean;
 
   propagateClick() {
     this.$emit('click');

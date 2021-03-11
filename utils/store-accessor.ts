@@ -1,14 +1,13 @@
 import { Store } from 'vuex';
 import { getModule } from 'vuex-module-decorators';
-
-import DashboardModule from '~/store/dashboard';
+import ErrorsModule from '~/store/errors';
 
 /* eslint import/no-mutable-exports: 0 */
 
-let dashboardStore: DashboardModule;
+let errorsStore: ErrorsModule;
 
 function initialiseStores(store: Store<any>): void {
-  dashboardStore = getModule(DashboardModule, store);
+  errorsStore = getModule(ErrorsModule, store);
 }
 
-export { dashboardStore, initialiseStores };
+export { errorsStore, initialiseStores };

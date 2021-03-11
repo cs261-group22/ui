@@ -24,15 +24,16 @@
 
 // Sidebar styles
 .sidebar {
+  height: 100%;
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 768px) {
-    max-width: 22rem;
+  @media (min-width: 1024px) {
+    width: 18rem;
+    position: fixed;
   }
 
   .sidebar-header {
-    // height: 5.1rem;
     flex-direction: column;
     justify-content: center;
     background: linear-gradient(
@@ -50,7 +51,7 @@
 
 .sidebar-nav {
   > li {
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
       width: 16rem;
 
       &:not(:last-child) {
@@ -77,12 +78,13 @@
       display: flex;
       cursor: pointer;
       padding: 1rem 0;
+      font-weight: 500;
       font-size: 0.9rem;
       align-items: center;
       text-transform: uppercase;
       color: theme('colors.white');
       justify-content: space-between;
-      letter-spacing: theme('letterSpacing.widest');
+      letter-spacing: 0.05em;
     }
 
     &:hover,
@@ -91,5 +93,22 @@
         color: theme('colors.quinary');
       }
     }
+  }
+}
+
+.page-content {
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    margin-left: 18rem;
+  }
+}
+
+.scroll-content {
+  // height: 70rem;
+  overflow-y: auto;
+
+  @media (min-width: 1024px) {
+    // height: 75rem;
   }
 }

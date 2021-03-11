@@ -1,5 +1,6 @@
 import { User } from './user';
 import { Event } from './event';
+import { Response } from './response';
 
 /* eslint-disable camelcase */
 export interface Session {
@@ -7,6 +8,7 @@ export interface Session {
   user?: User;
   mood?: number;
   event?: Event;
+  responses?: Response[];
   started_at?: Date;
   is_submitted: boolean;
 }

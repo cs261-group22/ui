@@ -1,35 +1,35 @@
 <template>
-  <div class="flex-grow min-h-screen">
+  <div class="flex-grow">
     <header class="bg-white shadow">
-      <div class="h-20 py-6 px-4 sm:px-6 lg:px-8 w-full">
-        <div class="flex justify-between">
-          <p class="text-2xl font-bold">Manage Questions</p>
+      <div
+        class="lg:h-20 py-6 px-6 lg:px-8 w-full flex justify-between md:items-center flex-col md:flex-row"
+      >
+        <p class="text-xl font-bold font-serif mb-2 md:mb-0">Manage Event Questions</p>
 
-          <div class="flex items-center">
-            <span class="mr-4">Add new question</span>
+        <div class="flex items-center">
+          <span class="mr-4 block">Add new question:</span>
 
-            <button
-              title="Free text"
-              class="p-2 mr-2 bg-primary rounded-full text-white"
-              @click="addFreeTextQuestion()"
-            >
-              <img src="~/assets/icons/free-text-md.svg" />
-            </button>
+          <button
+            title="Free text"
+            class="p-2 mr-2 bg-primary rounded-full text-white"
+            @click="addFreeTextQuestion()"
+          >
+            <img src="~/assets/icons/free-text-md.svg" />
+          </button>
 
-            <button
-              title="Multiple choice"
-              class="p-2 bg-primary rounded-full text-white"
-              @click="addMultipleChoiceQuestion()"
-            >
-              <img src="~/assets/icons/multiple-choice-md.svg" />
-            </button>
-          </div>
+          <button
+            title="Multiple choice"
+            class="p-2 bg-primary rounded-full text-white"
+            @click="addMultipleChoiceQuestion()"
+          >
+            <img src="~/assets/icons/multiple-choice-md.svg" />
+          </button>
         </div>
       </div>
     </header>
 
-    <div class="py-6 px-4 sm:px-6 lg:px-8">
-      <div class="flex-grow ml-5 lg:ml-0">
+    <div class="scroll-content py-6 px-6 lg:px-8">
+      <div class="flex-grow">
         <transition-group name="flip-list" tag="div">
           <question
             v-for="(question, index) in event.questions"

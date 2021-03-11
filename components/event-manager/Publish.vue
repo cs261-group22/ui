@@ -1,12 +1,12 @@
 <template>
-  <div class="flex-grow min-h-screen">
+  <div class="flex-grow">
     <header class="bg-white shadow">
-      <div class="md:h-24 flex items-center lg:h-20 max-w-7xl py-6 px-4 sm:px-6 lg:px-8 w-full">
-        <h1 class="text-2xl font-bold">Publish Event</h1>
+      <div class="md:h-24 flex items-center lg:h-20 max-w-7xl py-6 px-6 lg:px-8 w-full">
+        <h1 class="text-xl font-bold font-serif">Publish Event</h1>
       </div>
     </header>
 
-    <div class="py-6 px-4 sm:px-6 lg:px-8 max-w-6xl">
+    <div class="py-6 px-6 lg:px-8 max-w-6xl">
       <p class="font-bold mb-2">Event Requirement Checklist:</p>
 
       <div class="flex ml-2 mb-4">
@@ -94,6 +94,7 @@ import ProgressButton from '~/components/common/ProgressButton.vue';
 
 import { Event } from '~/types/models/event';
 import { QuestionType } from '~/types/models/question';
+import { errorsStore } from '~/utils/store-accessor';
 
 @Component({ components: { ProgressButton } })
 export default class EventPublish extends Vue {
@@ -110,7 +111,7 @@ export default class EventPublish extends Vue {
 
       this.$router.push('/dashboard/events');
     } catch {
-      // todo: show error message
+      errorsStore.flashError('Sorry, an unknown error occurred while publishing the event.');
     }
   }
 

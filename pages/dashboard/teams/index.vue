@@ -36,92 +36,120 @@
     />
 
     <header class="bg-white shadow">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between w-full">
-        <h1 class="text-3xl font-bold leading-tight text-primary">Manage Your Teams</h1>
+      <div
+        class="max-w-7xl mx-auto py-6 md:py-4 px-6 lg:px-8 flex justify-between w-full md:items-center flex-col md:flex-row"
+      >
+        <h1 class="text-xl font-bold leading-tight text-primary font-serif mb-2 md:mb-0">
+          Manage Your Teams
+        </h1>
 
-        <button
-          v-if="isAdmin"
-          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-quinary"
-          @click="creatingTeam = true"
-        >
-          Add new team
-        </button>
+        <div>
+          <button v-if="isAdmin" class="gradient-button is-compact" @click="creatingTeam = true">
+            Add new team
+          </button>
+        </div>
       </div>
     </header>
 
     <main>
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="px-4 py-6 sm:px-0">
-          <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <loader :loading="loadingTeams">
-                  <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
-                      <thead class="bg-gray-50">
-                        <tr>
-                          <th
-                            scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      <div class="max-w-7xl mx-auto py-6 lg:px-8">
+        <div class="flex flex-col">
+          <div class="-my-2 overflow-x-auto lg:-mx-8">
+            <div class="py-2 px-6 align-middle inline-block min-w-full md:px-6 lg:px-8">
+              <loader :loading="loadingTeams">
+                <div class="overflow-hidden lg:border-b lg:border-gray-200 lg:shadow lg:rounded-lg">
+                  <table class="min-w-full lg:divide-y lg:divide-gray-200">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                        >
+                          Name
+                        </th>
+
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                        >
+                          Department
+                        </th>
+
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell"
+                        >
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody class="bg-white divide-y divide-gray-200">
+                      <tr
+                        v-for="team in teams"
+                        :key="team.id"
+                        class="flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-6 lg:mb-0 border rounded-md bg-grey-200 lg:bg-white"
+                      >
+                        <td
+                          class="px-6 py-2 lg:py-4 whitespace-nowrap text-right sm:text-center lg:text-left block w-full lg:w-auto lg:table-cell relative lg:static"
+                        >
+                          <span
+                            class="lg:hidden absolute top-0 left-0 bg-primary text-center text-white w-24 px-2 py-3 text-xs font-bold uppercase rounded-tl-md"
                           >
                             Name
-                          </th>
+                          </span>
 
-                          <th
-                            scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          <span class="text-sm font-medium text-gray-900">
+                            {{ team.name }}
+                          </span>
+                        </td>
+
+                        <td
+                          class="px-6 py-2 lg:py-4 whitespace-nowrap text-right sm:text-center lg:text-left block w-full lg:w-auto lg:table-cell relative lg:static"
+                        >
+                          <span
+                            class="lg:hidden absolute top-0 left-0 bg-primary text-center text-white w-24 px-2 py-3 text-xs font-bold uppercase"
                           >
                             Department
-                          </th>
+                          </span>
 
-                          <th
-                            scope="col"
-                            class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          <span class="text-sm font-medium text-gray-900">
+                            {{ team.department }}
+                          </span>
+                        </td>
+
+                        <td
+                          class="px-6 py-2 lg:py-4 whitespace-nowrap text-right sm:text-center lg:text-left block w-full lg:w-auto lg:table-cell relative lg:static"
+                        >
+                          <span
+                            class="lg:hidden absolute top-0 left-0 bg-primary text-center text-white w-24 px-2 py-3 text-xs font-bold uppercase rounded-bl-md"
                           >
                             Actions
-                          </th>
-                        </tr>
-                      </thead>
+                          </span>
 
-                      <tbody class="bg-white divide-y divide-gray-200">
-                        <tr v-for="team in teams" :key="team.id">
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="text-sm font-medium text-gray-900">
-                              {{ team.name }}
-                            </span>
-                          </td>
+                          <router-link
+                            :to="{ name: 'dashboard-teams-id', params: { id: team.id } }"
+                            class="text-indigo-600 hover:text-indigo-900 text-sm mr-1 lg:mr-2"
+                          >
+                            Manage Members
+                          </router-link>
 
-                          <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="text-sm font-medium text-gray-900">
-                              {{ team.department }}
-                            </span>
-                          </td>
+                          <template v-if="isAdmin">
+                            <span class="text-sm lg:text-md">|</span>
 
-                          <td class="px-3 py-4 whitespace-nowrap text-sm font-medium">
-                            <router-link
-                              :to="{ name: 'dashboard-teams-id', params: { id: team.id } }"
-                              class="text-indigo-600 hover:text-indigo-900 mr-2"
+                            <button
+                              class="text-indigo-600 hover:text-indigo-900 text-sm ml-1 lg:ml-2"
+                              @click="confirmDeletion(team.id)"
                             >
-                              Manage Members
-                            </router-link>
-
-                            <template v-if="isAdmin">
-                              <span>|</span>
-
-                              <button
-                                class="text-indigo-600 hover:text-indigo-900 ml-2"
-                                @click="confirmDeletion(team.id)"
-                              >
-                                Delete
-                              </button>
-                            </template>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </loader>
-              </div>
+                              Delete
+                            </button>
+                          </template>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </loader>
             </div>
           </div>
         </div>
@@ -139,6 +167,7 @@ import Loader from '~/components/common/Loader.vue';
 import FormModal from '~/components/common/FormModal.vue';
 import ProgressButon from '~/components/common/ProgressButton.vue';
 import ConfirmationModal from '~/components/common/ConfirmationModal.vue';
+import { errorsStore } from '~/utils/store-accessor';
 
 @Component({
   layout: 'dashboard',
@@ -176,7 +205,7 @@ export default class Teams extends UserMixin {
       this.teamName = '';
       this.teamDepartment = '';
     } catch {
-      // todo: show error message
+      errorsStore.flashError('Sorry, an unknown error occurred while creating the team.');
     }
   }
 
@@ -187,7 +216,7 @@ export default class Teams extends UserMixin {
       this.teams = this.teams.filter((teams) => teams.id !== this.teamToDelete);
       this.teamToDelete = null;
     } catch {
-      // todo: show error message
+      errorsStore.flashError('Sorry, an unknown error occurred while deleting the team.');
     }
   }
 

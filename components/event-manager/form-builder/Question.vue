@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mb-8 px-6 py-8 bg-lightgrey rounded-md text-black border-dotted border-4 border-primary border-opacity-30"
+    class="mb-8 p-4 lg:px-6 lg:py-8 bg-lightgrey rounded-md text-black border-dotted border-4 border-primary border-opacity-30"
   >
     <div class="flex items-center w-full">
       <div class="mr-6">

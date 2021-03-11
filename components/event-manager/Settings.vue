@@ -1,12 +1,12 @@
 <template>
-  <div class="flex-grow min-h-screen">
+  <div class="flex-grow">
     <header class="bg-white shadow">
-      <div class="md:h-24 flex items-center lg:h-20 max-w-7xl py-6 px-4 sm:px-6 lg:px-8 w-full">
-        <h1 class="text-2xl font-bold">Manage Event Settings</h1>
+      <div class="flex items-center lg:h-20 max-w-7xl py-6 px-6 lg:px-8 w-full">
+        <h1 class="text-xl font-bold font-serif">Manage Event Settings</h1>
       </div>
     </header>
 
-    <div class="py-6 px-4 sm:px-6 lg:px-8 max-w-6xl">
+    <div class="py-6 px-6 lg:px-8 max-w-6xl">
       <div class="mb-4">
         <label for="name" class="block text-sm font-medium text-black">Name</label>
         <input

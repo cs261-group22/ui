@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-col md:flex-row w-full h-full">
+  <div class="flex flex-col lg:flex-row w-full">
     <div class="sidebar bg-primarydark">
-      <div class="sidebar-header h-24 lg:h-20 px-6 lg:px-8 hidden md:flex">
+      <div class="sidebar-header h-24 lg:h-20 px-6 lg:px-8 hidden lg:flex">
         <p class="font-medium text-white">{{ truncatedEventName }}</p>
 
         <p class="text-xs text-grey-500">Draft Event</p>
       </div>
 
-      <div class="sidebar-content md:px-6 md:py-4 lg:px-8">
-        <ul class="flex justify-evenly md:block sidebar-nav list-reset">
+      <div class="sidebar-content px-6 lg:px-6 lg:py-4 lg:px-8">
+        <ul class="flex justify-between sm:justify-evenly lg:block sidebar-nav list-reset">
           <li :class="{ active: eventTab === EventTab.SETTINGS }">
             <router-link :to="`?tab=${EventTab.SETTINGS}`"> Settings </router-link>
           </li>
@@ -28,17 +28,11 @@
       </div>
     </div>
 
-    <loader :loading="event === null" class="w-full">
-      <transition-group name="page">
-        <hosts v-if="eventTab === EventTab.HOSTS" :key="EventTab.HOSTS" v-model="event" />
-        <publish v-if="eventTab === EventTab.PUBLISH" :key="EventTab.PUBLISH" :event="event" />
-        <settings v-if="eventTab === EventTab.SETTINGS" :key="EventTab.SETTINGS" v-model="event" />
-        <questions
-          v-if="eventTab === EventTab.QUESTIONS"
-          :key="EventTab.QUESTIONS"
-          v-model="event"
-        />
-      </transition-group>
+    <loader :loading="event === null" class="page-content">
+      <hosts v-if="eventTab === EventTab.HOSTS" :key="EventTab.HOSTS" v-model="event" />
+      <publish v-if="eventTab === EventTab.PUBLISH" :key="EventTab.PUBLISH" :event="event" />
+      <settings v-if="eventTab === EventTab.SETTINGS" :key="EventTab.SETTINGS" v-model="event" />
+      <questions v-if="eventTab === EventTab.QUESTIONS" :key="EventTab.QUESTIONS" v-model="event" />
     </loader>
   </div>
 </template>
@@ -55,6 +49,7 @@ import Publish from '~/components/event-manager/Publish.vue';
 import Settings from '~/components/event-manager/Settings.vue';
 import Questions from '~/components/event-manager/Questions.vue';
 import ProgressButton from '~/components/common/ProgressButton.vue';
+import { errorsStore } from '~/utils/store-accessor';
 
 enum EventTab {
   HOSTS = 'hosts',
@@ -88,7 +83,7 @@ export default class ModifyEvent extends Vue {
         return this.$router.push('/dashboard/events');
       }
     } catch {
-      // todo: show error message
+      errorsStore.flashError('Sorry, an unknown error occurred while fetching the event.');
     }
   }
 

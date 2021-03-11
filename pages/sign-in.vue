@@ -1,6 +1,6 @@
 <template>
   <div>
-    <login></login>
+    <login v-if="showLogin" />
   </div>
 </template>
 
@@ -14,17 +14,26 @@ import { UserMixin } from '~/mixins/user';
   components: { Login },
 })
 export default class SignIn extends UserMixin {
+  showLogin = false;
+
   created() {
     if (!this.isLoggedIn) {
+      this.showLogin = true;
       return;
     }
 
     if (!this.$route.query.target) {
+      this.showLogin = true;
+      return;
+    }
+
+    if (this.isGuest) {
+      this.showLogin = true;
       return;
     }
 
     if (this.$route.query.target === 'dashboard') {
-      this.$router.push({ name: 'dashboard' });
+      this.$router.push({ name: 'dashboard-events' });
     } else {
       this.$router.push({
         name: 'event-code',

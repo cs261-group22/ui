@@ -1,171 +1,169 @@
 <template>
-  <div>
-    <div class="bg-primary text-white mb-4 py-8">
-      <div v-if="event" class="mx-auto max-w-6xl px-4 sm:px-8 xl:px-0">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-4xl font-extrabold">{{ event.name }}</p>
+  <div class="bg-gray-100 pb-8 px-6 h-full overflow-auto">
+    <div class="bg-primary text-white -mx-6 mb-4 pt-16 pb-32">
+      <div v-if="event" class="mx-auto max-w-6xl px-4 sm:px-8 xl:px-0 text-center">
+        <p class="text-4xl font-bold font-serif">{{ event.name }}</p>
 
-            <p>{{ event.description }}</p>
-          </div>
-
-          <div>
-            <p>Responding as</p>
-            <p class="font-bold">{{ isGuest ? 'Guest' : userName }}</p>
-          </div>
-        </div>
+        <p class="font-serif">{{ event.description }}</p>
       </div>
     </div>
 
-    <div class="container mx-auto max-w-6xl px-4 sm:px-8 xl:px-0">
-      <loader :loading="loading" class="py-8 mb-8">
-        <transition-group name="page">
-          <div v-if="!loading && submitted" key="1">
-            <p class="text-2xl mb-1">Questions</p>
+    <div
+      class="container mx-auto max-w-6xl px-8 py-8 md:px-12 md:py-10 lg:px-16 lg:py-12 bg-white -mt-28 rounded-xl shadow-md"
+    >
+      <loader :loading="loading">
+        <transition name="fade">
+          <div v-if="!loading && !submitted && !exceededSessionLimit">
+            <p class="text-xl md:text-2xl font-bold font-serif">Questions</p>
+            <p class="mb-8">Please provide a responses to all of the questions below.</p>
 
-            <p class="mb-8">
-              To give feedback for the event organiser, please give responses to each of the
-              questions below.
-            </p>
+            <div class="mb-12">
+              <div v-for="(question, questionIndex) in questions" :key="question.id" class="mb-8">
+                <div class="flex mb-4">
+                  <p class="font-bold mr-2">{{ questionIndex + 1 }})</p>
 
-            <div v-for="(question, questionIndex) in questions" :key="question.id" class="mb-8">
-              <div class="flex mb-4">
-                <p class="font-bold mr-2">{{ questionIndex + 1 }})</p>
-
-                <div class="w-full">
-                  <p
-                    class="font-bold"
-                    :class="{
-                      'mb-4': question.type === QuestionType.FREE_TEXT,
-                      'mb-1': question.type === QuestionType.MULTIPLE_CHOICE,
-                    }"
-                  >
-                    {{ question.prompt }}
-                  </p>
-
-                  <template v-if="question.type === QuestionType.FREE_TEXT">
-                    <textarea
-                      class="w-full"
-                      :value="getFreeTextResponse(question.id)"
-                      @input="setFreeTextResponse(question.id, ...arguments)"
-                    />
-                  </template>
-
-                  <template v-else>
-                    <p v-if="getMultipleChoiceHint(question)" class="text-sm italic mb-2">
-                      {{ getMultipleChoiceHint(question) }}
+                  <div class="w-full">
+                    <p
+                      class="font-bold"
+                      :class="{
+                        'mb-4': question.type === QuestionType.FREE_TEXT,
+                        'mb-1': question.type === QuestionType.MULTIPLE_CHOICE,
+                      }"
+                    >
+                      {{ question.prompt }}
                     </p>
 
-                    <div v-for="answer in question.answers" :key="answer.id">
-                      <label>
-                        <template v-if="getAnswerType(question) === 'radio'">
-                          <input
-                            :id="answer.id"
-                            :value="answer.id"
-                            :name="`${questionIndex}`"
-                            :checked="getMultipleChoiceRadioAnswer(question.id) === answer.id"
-                            type="radio"
-                            class="form-radio mr-2"
-                            @change="setMultipleChoiceRadio(question.id, answer.id)"
-                          />
-                        </template>
+                    <template v-if="question.type === QuestionType.FREE_TEXT">
+                      <textarea
+                        class="w-full rounded-md shadow-sm sm:text-sm border-gray-300"
+                        :value="getFreeTextResponse(question.id)"
+                        rows="3"
+                        @input="setFreeTextResponse(question.id, ...arguments)"
+                      />
+                    </template>
 
-                        <template v-else>
-                          <input
-                            :id="answer.id"
-                            :name="`${questionIndex}`"
-                            :checked="getMultipleChoiceCheckboxSelected(question.id, answer.id)"
-                            type="checkbox"
-                            class="mr-2"
-                            @change="
-                              setMultipleChoiceCheckbox(question.id, answer.id, ...arguments)
-                            "
-                          />
-                        </template>
+                    <template v-else>
+                      <p v-if="getMultipleChoiceHint(question)" class="text-sm italic mb-2">
+                        {{ getMultipleChoiceHint(question) }}
+                      </p>
 
-                        <span>{{ answer.value }}</span>
-                      </label>
-                    </div>
-                  </template>
+                      <div v-for="answer in question.answers" :key="answer.id">
+                        <label>
+                          <template v-if="getAnswerType(question) === 'radio'">
+                            <input
+                              :id="answer.id"
+                              :value="answer.id"
+                              :name="`${questionIndex}`"
+                              :checked="getMultipleChoiceRadioAnswer(question.id) === answer.id"
+                              type="radio"
+                              class="form-radio mr-2"
+                              @change="setMultipleChoiceRadio(question.id, answer.id)"
+                            />
+                          </template>
+
+                          <template v-else>
+                            <input
+                              :id="answer.id"
+                              :name="`${questionIndex}`"
+                              :checked="getMultipleChoiceCheckboxSelected(question.id, answer.id)"
+                              type="checkbox"
+                              class="mr-2"
+                              @change="
+                                setMultipleChoiceCheckbox(question.id, answer.id, ...arguments)
+                              "
+                            />
+                          </template>
+
+                          <span>{{ answer.value }}</span>
+                        </label>
+                      </div>
+                    </template>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <hr class="mb-8" />
+            <hr class="block -mx-8 md:-mx-12 lg:-mx-16 mb-12" />
 
-            <p class="text-2xl mb-1">Mood</p>
+            <div class="mb-12">
+              <p class="text-xl md:text-2xl font-bold font-serif">Mood</p>
 
-            <p class="mb-8">
-              To provide the event organiser with context for your feedback, please adjust the
-              slider to represent how you are currently feeling.
-            </p>
+              <p class="mb-8">
+                To provide context for your feedback, please adjust the slider to represent how you
+                are currently feeling.
+              </p>
 
-            <div class="max-w-3xl mx-auto mb-8">
-              <div class="flex mb-2 text-5xl justify-between">
-                <p class="cursor-pointer" @click="session.mood = 0">😠</p>
-                <p class="cursor-pointer" @click="session.mood = 25">🙁</p>
-                <p class="cursor-pointer" @click="session.mood = 50">😐</p>
-                <p class="cursor-pointer" @click="session.mood = 75">🙂</p>
-                <p class="cursor-pointer" @click="session.mood = 100">😀</p>
-              </div>
+              <div class="">
+                <div class="flex mb-2 text-5xl justify-between">
+                  <p class="cursor-pointer" @click="session.mood = 0">😠</p>
+                  <p class="cursor-pointer" @click="session.mood = 25">🙁</p>
+                  <p class="cursor-pointer" @click="session.mood = 50">😐</p>
+                  <p class="cursor-pointer" @click="session.mood = 75">🙂</p>
+                  <p class="cursor-pointer" @click="session.mood = 100">😀</p>
+                </div>
 
-              <input
-                v-model="session.mood"
-                class="w-full mb-2"
-                type="range"
-                min="0"
-                max="100"
-                value="50"
-              />
+                <input
+                  v-model="session.mood"
+                  class="w-full mb-2"
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="50"
+                />
 
-              <div class="flex justify-between">
-                <p>Very Dissatisfied</p>
-                <p class="-ml-5">Neutral</p>
-                <p>Very Satisfied</p>
+                <div class="flex justify-between">
+                  <p>Very Dissatisfied</p>
+                  <p class="-ml-5">Neutral</p>
+                  <p class="text-right md:text-left">Very Satisfied</p>
+                </div>
               </div>
             </div>
 
-            <hr class="mb-8" />
+            <hr class="block -mx-8 md:-mx-12 lg:-mx-16 mb-12" />
 
-            <p class="text-2xl mb-1">Submit</p>
+            <div>
+              <p class="text-xl md:text-2xl font-bold font-serif">Submit</p>
 
-            <div class="mb-6">
-              <p class="mb-1">
-                If you have finished the form, please submit your feedback to send it to the host.
-              </p>
+              <div class="mb-6">
+                <p class="mb-2 md:mb-0">
+                  If you have finished the form, please submit your feedback to send it to the host.
+                </p>
 
-              <p>
-                Alternatively if you are not ready to submit your feedback yet, please ensure you
-                have saved your responses before leaving the page.
-              </p>
-            </div>
+                <p>
+                  If you are not ready to submit your feedback yet, please save your responses
+                  before leaving the page.
+                </p>
+              </div>
 
-            <div class="flex">
-              <button
-                class="px-4 py-2 mr-4 rounded-md cursor-pointer"
-                :class="{
-                  'bg-quinary text-white cursor-pointer': allQuestionsCompleted,
-                  'bg-lightgrey text-primary cursor-default': !allQuestionsCompleted,
-                }"
-                @click="submit"
-              >
-                Submit Feedback
-              </button>
+              <div class="flex flex-col md:flex-row">
+                <button
+                  class="px-4 py-2 mr-4 gradient-button is-dark w-full md:w-min mb-2 md:mb-0"
+                  :class="{
+                    'bg-lightgrey text-primary no-gradient disabled': !allQuestionsCompleted,
+                  }"
+                  :disabled="!allQuestionsCompleted"
+                  @click="submit"
+                >
+                  Submit Feedback
+                </button>
 
-              <button
-                class="px-4 py-2 rounded-md"
-                :class="{
-                  'bg-secondary text-white cursor-pointer': unsavedResponses,
-                  'bg-lightgrey text-primary cursor-default': !unsavedResponses,
-                }"
-                @click="save"
-              >
-                Save Responses
-              </button>
+                <button
+                  class="px-4 py-2 gradient-button w-full md:w-min"
+                  :class="{
+                    'bg-lightgrey text-primary no-gradient  disabled': !unsavedResponses,
+                  }"
+                  :disabled="!unsavedResponses"
+                  @click="save"
+                >
+                  Save Responses
+                </button>
+              </div>
             </div>
           </div>
+        </transition>
 
-          <div v-if="!loading && !submitted" key="2" class="py-4 max-w-6xl mx-auto">
+        <transition name="delayed-fade">
+          <div v-if="!loading && submitted">
             <div class="flex flex-col sm:flex-row items-center">
               <div class="sm:mr-4 md:mr-8 lg:mr-12 mb-8 sm:mb-0">
                 <svg
@@ -185,7 +183,7 @@
               </div>
 
               <div>
-                <p class="text-3xl mb-1">Responses Submitted</p>
+                <p class="text-3xl mb-1 font-serif">Responses Submitted</p>
 
                 <p class="mb-2">
                   Thank you for taking the time to provide feedback, your responses have been
@@ -193,15 +191,40 @@
                   You can now safely close your browser window.
                 </p>
 
-                <p>
-                  If you wish to fill out another survey, please
-                  <router-link class="underline" to="/">click here</router-link> to return to the
-                  homepage.
+                <p class="mb-4">
+                  If you wish to fill out another survey, please click the button below to return to
+                  the homepage.
                 </p>
+
+                <router-link to="/">
+                  <button
+                    class="px-4 py-2 mr-4 rounded-md cursor-pointer bg-lightgrey text-black cursor-pointer"
+                  >
+                    Return to homepage
+                  </button>
+                </router-link>
               </div>
             </div>
           </div>
-        </transition-group>
+        </transition>
+
+        <transition name="delayed-fade">
+          <div v-if="exceededSessionLimit">
+            <p class="text-xl font-bold font-serif">Sorry!</p>
+            <p class="mb-4">
+              You have exceeded the limit for the maximum number of submissions for this event.
+              Please click the button below to return to the homepage.
+            </p>
+
+            <router-link to="/">
+              <button
+                class="px-4 py-2 mr-4 rounded-md cursor-pointer bg-lightgrey text-black cursor-pointer"
+              >
+                Return to homepage
+              </button>
+            </router-link>
+          </div>
+        </transition>
       </loader>
     </div>
   </div>
@@ -220,6 +243,7 @@ import { Question, QuestionType } from '~/types/models/question';
 import Loader from '~/components/common/Loader.vue';
 import { Session } from '~/types/models/session';
 import { Response } from '~/types/models/response';
+import { errorsStore } from '~/utils/store-accessor';
 
 @Component({
   layout: 'default',
@@ -229,6 +253,7 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
   loading = true;
   submitted = false;
   showSavedMessage = false;
+  exceededSessionLimit = false;
 
   event: Event | null = null;
   session: Session | null = null;
@@ -277,6 +302,9 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
         }),
       );
 
+      // Join the events presence channel
+      (this as any).$echo.join(`attendee-presence.${this.event?.id}`);
+
       this.persistedResponses = responsesResponse.data.data;
       this.responses = responses;
       this.loading = false;
@@ -292,8 +320,17 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
           return message;
         }
       };
-    } catch {
-      // todo: show error message
+    } catch (error) {
+      if (error?.response?.status === 422) {
+        this.$auth.reset();
+
+        this.exceededSessionLimit = true;
+        this.loading = false;
+      } else {
+        errorsStore.flashError(
+          'Sorry, an unknown error occurred while joining the event, please try again later.',
+        );
+      }
     }
   }
 
@@ -312,7 +349,9 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
 
       this.persistedResponses = responses;
     } catch {
-      // todo: show error message
+      errorsStore.flashError(
+        'Sorry, an unknown error occurred while saving your responses, please try again later.',
+      );
     }
   }
 
@@ -327,10 +366,13 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
 
       // Log the user out after submission to prevent them from starting a new session when refreshing the page
       this.$auth.reset();
+      (this as any).$echo.leave(`attendee-presence.${this.event?.id}`);
 
       this.submitted = true;
     } catch {
-      // todo: show error message
+      errorsStore.flashError(
+        'Sorry, an unknown error occurred while submitting your responses, please try again later.',
+      );
     }
   }
 

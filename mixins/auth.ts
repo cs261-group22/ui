@@ -2,20 +2,23 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component
 export default class AuthMixin extends Vue {
-  async loginEmployee(email: string, password: string) {
+  async loginEmployee(email: string, password: string, token: string) {
     await this.requestCookie();
     await this.$auth.loginWith('local', {
       data: {
         email,
         password,
+        'recaptcha-response': token,
       },
     });
   }
 
-  async loginGuest() {
+  async loginGuest(token: string) {
     await this.requestCookie();
 
-    let response = await this.$axios.$post(process.env.NUXT_ENV_API_ROUTE + '/login/guest');
+    let response = await this.$axios.$post(process.env.NUXT_ENV_API_ROUTE + '/login/guest', {
+      'recaptcha-response': token,
+    });
 
     this.$auth.setToken('local', 'Bearer ' + response.token);
     this.$axios.setHeader('Authorization', 'Bearer ' + response.token);
@@ -37,25 +40,5 @@ export default class AuthMixin extends Vue {
       },
       withCredentials: true,
     });
-  }
-
-  async recoverPassword(email: string) {
-    await this.requestCookie();
-    await this.$axios.$post(process.env.NUXT_ENV_API_ROUTE + '/recover-password', {
-      email,
-    });
-  }
-
-  async resetPassword(token: string, email: string, password: string) {
-    await this.$axios.$post(process.env.NUXT_ENV_API_ROUTE + '/reset-password', {
-      token,
-      email,
-      password,
-      password_confirmation: password,
-    });
-  }
-
-  async register(details: Object) {
-    await this.$axios.$post(process.env.NUXT_ENV_API_ROUTE + '/register', details);
   }
 }

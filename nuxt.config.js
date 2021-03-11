@@ -12,7 +12,20 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700',
+        href:
+          'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap',
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap',
+      },
+    ],
+    script: [
+      {
+        src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit',
+        async: true,
+        defer: true,
       },
     ],
   },
@@ -23,25 +36,25 @@ export default {
   css: ['@/assets/sass/app.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-    '@/plugins/event-bus.ts',
-    '@/plugins/datepicker.ts',
-    '@/plugins/axios-accessor.ts',
-    '@/plugins/service-injector.ts',
-  ],
+  plugins: ['@/plugins/axios-accessor.ts', '@/plugins/datepicker.ts'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
   // Modules to build (https://go.nuxtjs.dev/config-modules)
-  buildModules: ['@nuxt/typescript-build', '@nuxtjs/tailwindcss'],
+  buildModules: [
+    '@nuxt/typescript-build',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/laravel-echo',
+    'portal-vue/nuxt',
+  ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
+    ['@nuxtjs/pwa', { workbox: { enabled: false } }],
     // https://auth.nuxtjs.org/
     '@nuxtjs/auth',
   ],
@@ -97,9 +110,37 @@ export default {
   build: {},
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
+    NUXT_ENV_WS_HOST: process.env.NUXT_ENV_WS_HOST,
+    NUXT_ENV_WS_PORT: process.env.NUXT_ENV_WS_PORT,
     NUXT_ENV_API_ROUTE: process.env.NUXT_ENV_API_ROUTE,
+    NUXT_ENV_RECAPTCHA_SITE_KEY: process.env.NUXT_ENV_RECAPTCHA_SITE_KEY,
   },
 
   // Disable the loading bar at the top of the page
-  loading: false,
+  loading: true,
+
+  // Laravel echo config (https://github.com/nuxt-community/laravel-echo)
+  echo: {
+    broadcaster: 'pusher',
+    key: 'cs261-websocket-key',
+    wsHost: process.env.NUXT_ENV_WS_HOST,
+    wsPort: process.env.NUXT_ENV_WS_PORT,
+    wssPort: process.env.NUXT_ENV_WS_PORT,
+    disableStats: false,
+    encrypted: true,
+    authModule: true,
+    connectOnLogin: true,
+    authEndpoint: process.env.BASE_URL + '/broadcasting/auth',
+  },
+
+  pwa: {
+    manifest: {
+      name: 'FeedBank',
+      short_name: 'FeedBank',
+      description: 'Event feedback system',
+      theme_color: '#264653',
+    },
+  },
+
+  meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' }],
 };

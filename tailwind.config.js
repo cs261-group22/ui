@@ -1,10 +1,6 @@
 const { colors: defaultColors } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
   purge: [],
   theme: {
     colors: {
@@ -15,6 +11,8 @@ module.exports = {
         primarydark: '#1c343d',
         primarydarker: '#182d34',
         secondary: '#2a9d8f',
+        secondarylight: '#32cfbb',
+
         tertiary: '#e9c46a',
         quaternary: '#f4a261',
         quinary: '#e76f51',
@@ -28,6 +26,10 @@ module.exports = {
           600: '#afaeae',
           700: '#636363',
           800: '#464646',
+        },
+
+        amber: {
+          400: '#FBBF24',
         },
       },
     },
