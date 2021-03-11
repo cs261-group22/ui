@@ -67,7 +67,7 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: [lint, test]
+    needs: [lint]
     runs-on: ubuntu-latest
 
     steps:
