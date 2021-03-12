@@ -6,42 +6,8 @@ on:
 name: CI
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Configure node environment
-        uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-
-      - name: Retrieve cached dependencies
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build app for production
-        run: yarn generate
-        env:
-          BASE_URL: https://api.feedbank.tech
-          NUXT_ENV_API_ROUTE: /api/v1
-          NUXT_HOST: https://feedbank.tech
-          NUXT_PORT: 80
-          NUXT_ENV_RECAPTCHA_SITE_KEY: '6Lf7dHsaAAAAAMtaoxgXj-54u9QnvkD_1ynoMoVx'
-          NUXT_ENV_WS_HOST: 'ws.feedbank.tech'
-          NUXT_ENV_WS_PORT: 443
-
   lint:
     name: Lint
-    needs: [build]
     runs-on: ubuntu-latest
 
     steps:
@@ -78,12 +44,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '12'
-
-      - name: Retrieve cached dependencies
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
         run: yarn install

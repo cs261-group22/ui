@@ -140,6 +140,9 @@ export default {
       description: 'Event feedback system',
       theme_color: '#264653',
     },
+    icons: {
+      fileName: 'icon.png',
+    },
   },
 
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' }],
