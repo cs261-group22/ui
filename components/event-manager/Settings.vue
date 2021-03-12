@@ -53,7 +53,9 @@
       </div>
 
       <div class="mb-4">
-        <label for="max_sessions" class="block text-sm font-medium text-black">Max Sessions</label>
+        <label for="max_sessions" class="block text-sm font-medium text-black"
+          >Max Submissions</label
+        >
         <input
           v-model.number="event.max_sessions"
           type="number"
