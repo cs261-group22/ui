@@ -47,8 +47,8 @@
         </div>
 
         <template v-if="isMultipleChoice">
-          <div class="flex mb-4">
-            <div class="w-1/2 mr-4">
+          <div class="flex flex-wrap lg:flex-nowrap mb-4">
+            <div class="w-full lg:w-1/2 mb-4 lg:mr-4 lg:mb-0">
               <label
                 :for="`min_responses_${question.id}`"
                 class="block text-sm font-medium text-black"
@@ -58,14 +58,14 @@
                 v-model.number="question.min_responses"
                 type="number"
                 :name="`min_responses_${question.id}`"
-                placeholder="1"
-                class="mt-1 w-full text-black block shadow-sm sm:text-sm border-gray-300 rounded-md"
+                placeholder="Enter a number, or empty for 0"
+                class="mt-1 w-full text-black block shadow-sm text-sm border-gray-300 rounded-md"
                 required
                 @keyup="updateQuestionDebounced()"
               />
             </div>
 
-            <div class="w-1/2">
+            <div class="w-full lg:w-1/2">
               <label
                 :for="`max_responses_${question.id}`"
                 class="block text-sm font-medium text-black"
@@ -75,8 +75,8 @@
                 v-model.number="question.max_responses"
                 type="number"
                 :name="`max_responses${question.id}`"
-                placeholder="1"
-                class="mt-1 w-full text-black block shadow-sm sm:text-sm border-gray-300 rounded-md"
+                placeholder="Enter a number, or empty for unlimited"
+                class="mt-1 w-full text-black block shadow-sm text-sm border-gray-300 rounded-md"
                 required
                 @keyup="updateQuestionDebounced()"
               />
