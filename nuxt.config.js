@@ -47,6 +47,7 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/laravel-echo',
     'portal-vue/nuxt',
+    '@nuxtjs/pwa',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -54,7 +55,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    ['@nuxtjs/pwa', { workbox: { enabled: false } }],
+    '@nuxtjs/pwa',
     // https://auth.nuxtjs.org/
     '@nuxtjs/auth',
   ],
