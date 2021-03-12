@@ -58,6 +58,7 @@ jobs:
           NUXT_ENV_RECAPTCHA_SITE_KEY: '6Lf7dHsaAAAAAMtaoxgXj-54u9QnvkD_1ynoMoVx'
           NUXT_ENV_WS_HOST: 'ws.feedbank.tech'
           NUXT_ENV_WS_PORT: 443
+          NODE_ENV: production
 
       - name: Copy deployment configuration
         run: cp ./.appengine/app.yaml ./dist
