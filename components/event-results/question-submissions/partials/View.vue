@@ -42,12 +42,14 @@
             </th>
 
             <th
+              v-if="question.type === 'free_text'"
               class="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
             >
               Implicit Mood
             </th>
 
             <th
+              v-if="question.type === 'free_text'"
               class="px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
             >
               Urgency
@@ -73,6 +75,7 @@
             </th>
 
             <td
+              v-if="question.type === 'free_text'"
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
               :class="getMetricColour(getScaledMood(response))"
             >
@@ -80,6 +83,7 @@
             </td>
 
             <td
+              v-if="question.type === 'free_text'"
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
               :class="getMetricColour(getScaledUrgency(response))"
             >
