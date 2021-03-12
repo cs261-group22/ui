@@ -57,9 +57,7 @@
             </p>
           </div>
 
-          <div class="w-full flex justify-center lg:block lg:w-1/2 lg:ml-12 mb-8 lg:mb-0">
-            <img src="~/assets/images/ui.png" class="rounded-md shadow-lg" width="550px" />
-          </div>
+          <div class="w-full flex justify-center lg:block lg:w-1/2 lg:ml-12 mb-8 lg:mb-0"></div>
         </div>
       </Portal>
     </div>
