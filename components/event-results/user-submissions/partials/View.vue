@@ -23,7 +23,7 @@
 
             <div>
               <p class="text-xl font-bold font-serif">
-                {{ `Submission from ${submission.user.name || 'Guest'}` }}
+                {{ `Submission from ${submission.user.name || `Guest ${submission.user.id}`}` }}
               </p>
 
               <p class="block lg:hidden italic text-sm">

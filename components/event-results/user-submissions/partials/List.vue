@@ -70,7 +70,7 @@
             <th
               class="px-4 sm:px-6 lg:px-8 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 text-left"
             >
-              {{ session.user.name || 'Guest' }}
+              {{ session.user.name || `Guest ${session.user.id}` }}
             </th>
 
             <td class="px-6 align-middle text-xs whitespace-no-wrap p-4">

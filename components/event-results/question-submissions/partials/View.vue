@@ -139,7 +139,7 @@ export default class QuestionView extends UserMixin {
   getUserName(response: Response) {
     const session = this.event.sessions.find((session) => session.id === response.session_id);
 
-    return session?.user?.name || 'Guest';
+    return session?.user?.name || `Guest ${session?.user?.id}`;
   }
 
   getScaledMood(response: Response) {
