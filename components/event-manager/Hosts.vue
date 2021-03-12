@@ -16,7 +16,9 @@
             class="block shadow-sm sm:text-sm border-gray-300 rounded-md mr-6 w-96"
           />
 
-          <progress-button :compact="true" @click="addHost"> Add Host </progress-button>
+          <progress-button :loading="addingUser" :compact="true" @click="addHost">
+            Add Host
+          </progress-button>
         </div>
       </div>
     </header>
@@ -135,6 +137,8 @@ export default class EventHosts extends UserMixin {
     const hosts = [...(this.event?.hosts?.map((host) => host.email) || []), this.email];
 
     try {
+      this.addingUser = true;
+
       const response = await this.$axios.patch(
         `${process.env.NUXT_ENV_API_ROUTE}/events/${this.event.id}/hosts`,
         { hosts },
@@ -143,6 +147,8 @@ export default class EventHosts extends UserMixin {
       this.event.hosts = response.data.data;
     } catch {
       errorsStore.flashError('Sorry, that email address does not exist in the system.');
+    } finally {
+      this.addingUser = false;
     }
   }
 

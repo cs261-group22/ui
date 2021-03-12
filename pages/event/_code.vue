@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 pb-8 px-6 h-full overflow-auto">
+  <div class="bg-gray-100 pb-8 px-6 overflow-auto" :class="{ 'h-screen': submitted }">
     <div class="bg-primary text-white -mx-6 mb-4 pt-16 pb-32">
       <div v-if="event" class="mx-auto max-w-6xl px-4 sm:px-8 xl:px-0 text-center">
         <p class="text-4xl font-bold font-serif">{{ event.name }}</p>
@@ -94,7 +94,7 @@
               </p>
 
               <div class="">
-                <div class="flex mb-2 text-5xl justify-between">
+                <div class="flex mb-2 text-3xl sm:text-5xl justify-between">
                   <p class="cursor-pointer" @click="session.mood = 0">😠</p>
                   <p class="cursor-pointer" @click="session.mood = 25">🙁</p>
                   <p class="cursor-pointer" @click="session.mood = 50">😐</p>
@@ -111,7 +111,7 @@
                   value="50"
                 />
 
-                <div class="flex justify-between">
+                <div class="flex justify-between text-xs sm:text-base">
                   <p>Very Dissatisfied</p>
                   <p class="-ml-5">Neutral</p>
                   <p class="text-right md:text-left">Very Satisfied</p>
@@ -136,27 +136,29 @@
               </div>
 
               <div class="flex flex-col md:flex-row">
-                <button
-                  class="px-4 py-2 mr-4 gradient-button is-dark w-full md:w-min mb-2 md:mb-0"
+                <progress-button
+                  class="px-4 py-2 mr-4 is-dark w-full md:w-min mb-2 md:mb-0"
                   :class="{
                     'bg-lightgrey text-primary no-gradient disabled': !allQuestionsCompleted,
                   }"
+                  :loading="submitting"
                   :disabled="!allQuestionsCompleted"
                   @click="submit"
                 >
                   Submit Feedback
-                </button>
+                </progress-button>
 
-                <button
-                  class="px-4 py-2 gradient-button w-full md:w-min"
+                <progress-button
+                  class="px-4 py-2 w-full md:w-min"
                   :class="{
                     'bg-lightgrey text-primary no-gradient  disabled': !unsavedResponses,
                   }"
+                  :loading="saving"
                   :disabled="!unsavedResponses"
                   @click="save"
                 >
                   Save Responses
-                </button>
+                </progress-button>
               </div>
             </div>
           </div>
@@ -240,6 +242,7 @@ import AuthMixin from '~/mixins/auth';
 import { Event } from '~/types/models/event';
 import { Question, QuestionType } from '~/types/models/question';
 
+import ProgressButton from '~/components/common/ProgressButton.vue';
 import Loader from '~/components/common/Loader.vue';
 import { Session } from '~/types/models/session';
 import { Response } from '~/types/models/response';
@@ -247,11 +250,13 @@ import { errorsStore } from '~/utils/store-accessor';
 
 @Component({
   layout: 'default',
-  components: { Loader },
+  components: { Loader, ProgressButton },
 })
 export default class Attendee extends mixins(UserMixin, AuthMixin) {
+  saving = false;
   loading = true;
   submitted = false;
+  submitting = false;
   showSavedMessage = false;
   exceededSessionLimit = false;
 
@@ -334,12 +339,13 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
     }
   }
 
-  async save() {
+  async save(showSpinner: boolean) {
     if (!this.unsavedResponses) {
       return;
     }
 
     try {
+      this.saving = showSpinner;
       const responses = [...this.responses.values()].flat();
 
       await this.$axios.patch(
@@ -352,13 +358,16 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
       errorsStore.flashError(
         'Sorry, an unknown error occurred while saving your responses, please try again later.',
       );
+    } finally {
+      this.saving = false;
     }
   }
 
   async submit() {
     try {
-      await this.save();
+      this.submitting = true;
 
+      await this.save(false);
       await this.$axios.post(
         `${process.env.NUXT_ENV_API_ROUTE}/sessions/${this.session?.id}/submit`,
         { mood: this.session?.mood || 50 },
@@ -370,6 +379,8 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
 
       this.submitted = true;
     } catch {
+      this.submitting = false;
+
       errorsStore.flashError(
         'Sorry, an unknown error occurred while submitting your responses, please try again later.',
       );
@@ -476,6 +487,10 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
   }
 
   get allQuestionsCompleted() {
+    if (this.submitting) {
+      return true;
+    }
+
     for (const question of this.event?.questions || []) {
       const responses = this.responses.get(question.id as number);
 
@@ -501,7 +516,7 @@ export default class Attendee extends mixins(UserMixin, AuthMixin) {
   get unsavedResponses() {
     const allResponses = [...this.responses.values()].flat();
 
-    if (this.persistedResponses.length !== allResponses.length) {
+    if (this.persistedResponses.length !== allResponses.length || this.saving) {
       return true;
     }
 

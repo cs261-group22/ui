@@ -66,7 +66,9 @@
             @verify="submit"
             @expired="resetCaptcha"
           >
-            <button class="gradient-button is-dark w-full h-10">Sign in</button>
+            <progress-button :loading="signingIn" class="is-dark w-full h-10"
+              >Sign in</progress-button
+            >
           </vue-recaptcha>
         </div>
       </div>
@@ -78,16 +80,21 @@
 import { Component, Ref } from 'nuxt-property-decorator';
 
 import VueRecaptcha from 'vue-recaptcha';
-import AuthMixin from '~/mixins/auth';
 
-@Component({ components: { VueRecaptcha } })
+import AuthMixin from '~/mixins/auth';
+import ProgressButton from '~/components/common/ProgressButton.vue';
+
+@Component({ components: { VueRecaptcha, ProgressButton } })
 export default class Login extends AuthMixin {
   email: string = '';
   password: string = '';
+  signingIn = false;
 
   @Ref('recaptcha') readonly recaptcha!: VueRecaptcha;
 
   submit(token: string) {
+    this.signingIn = true;
+
     this.loginEmployee(this.email, this.password, token)
       .then(() => {
         if (this.isDashboardLogin) {
@@ -98,7 +105,8 @@ export default class Login extends AuthMixin {
       })
       .catch(() => {
         window.location.href = `?failure=1&target=${this.$route.query.target}`;
-      });
+      })
+      .finally(() => (this.signingIn = false));
   }
 
   resetCaptcha() {

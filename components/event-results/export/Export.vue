@@ -19,15 +19,21 @@
         </select>
 
         <div class="flex flex-col md:flex-row">
-          <p
-            class="gradient-button mr-4 mb-2 md:mb-0 w-full md:w-auto"
+          <progress-button
+            class="mr-4 mb-2 md:mb-0 w-full md:w-auto"
+            :loading="exportingXlsx"
             @click="exportFeedback('xlsx')"
           >
             Export as Excel Spreadsheet
-          </p>
-          <p class="gradient-button w-full md:w-auto" @click="exportFeedback('csv')">
+          </progress-button>
+
+          <progress-button
+            class="w-full md:w-auto"
+            :loading="exportingCsv"
+            @click="exportFeedback('csv')"
+          >
             Export as CSV
-          </p>
+          </progress-button>
         </div>
       </div>
     </div>
@@ -55,10 +61,19 @@ export default class Export extends UserMixin {
   @Prop({ type: Object, required: true })
   event!: Event;
 
+  exportingCsv = false;
+  exportingXlsx = false;
+
   ExportType = ExportType;
   selectedExportType = ExportType.FULL;
 
   exportFeedback(format: string) {
+    if (format === 'xlsx') {
+      this.exportingXlsx = true;
+    } else {
+      this.exportingCsv = true;
+    }
+
     this.$axios({
       url: `${process.env.NUXT_ENV_API_ROUTE}/events/${this.event.id}/export?format=${format}&type=${this.selectedExportType}`,
       method: 'GET',
@@ -82,6 +97,9 @@ export default class Export extends UserMixin {
       // Create the element and download the file
       document.body.appendChild(feedbackLink);
       feedbackLink.click();
+
+      this.exportingXlsx = false;
+      this.exportingCsv = false;
     });
   }
 }

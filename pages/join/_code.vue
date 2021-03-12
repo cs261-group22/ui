@@ -3,7 +3,7 @@
     <div
       class="inline-flex mx-auto flex-col items-center bg-white rounded-lg py-8 px-6 sm:py-10 sm:px-8 lg:py-16 lg:px-20"
     >
-      <loader :loading="!fetchedEvent">
+      <loader :loading="!fetchedEvent" :class="{ 'px-24 pb-24 pt-14': !fetchedEvent }">
         <template v-if="event && !event.is_draft">
           <h1
             class="mb-1 text-left text-3xl md:text-4xl text-primary font-bold leading-tight fade-in font-serif font-serif"
@@ -40,9 +40,13 @@
             </nuxt-link>
 
             <vue-recaptcha size="invisible" :sitekey="recaptchaKey" @verify="joinAsGuest">
-              <button v-if="event.allow_guests" class="gradient-button w-full sm:w-auto">
+              <progress-button
+                v-if="event.allow_guests"
+                :loading="joining"
+                class="w-full sm:w-auto"
+              >
                 Join as guest
-              </button>
+              </progress-button>
             </vue-recaptcha>
           </div>
         </template>
@@ -67,6 +71,7 @@ import { Component } from 'vue-property-decorator';
 
 import VueRecaptcha from 'vue-recaptcha';
 import Loader from '~/components/common/Loader.vue';
+import ProgressButton from '~/components/common/ProgressButton.vue';
 
 import AuthMixin from '~/mixins/auth';
 import { UserMixin } from '~/mixins/user';
@@ -75,11 +80,12 @@ import { errorsStore } from '~/utils/store-accessor';
 
 @Component({
   layout: 'landing',
-  components: { Loader, VueRecaptcha },
+  components: { Loader, VueRecaptcha, ProgressButton },
 })
 export default class Join extends mixins(AuthMixin, UserMixin) {
   event: Event | null = null;
   fetchedEvent = false;
+  joining = false;
 
   async created() {
     try {
@@ -102,9 +108,13 @@ export default class Join extends mixins(AuthMixin, UserMixin) {
 
   async joinAsGuest(token: string) {
     try {
+      this.joining = true;
+
       await this.loginGuest(token);
       this.$router.push(`/event/${this.code}`);
     } catch (error) {
+      this.joining = false;
+
       errorsStore.flashError(
         'Sorry, an unknown error occurred while joining the event, please try again later.',
       );
