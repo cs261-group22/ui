@@ -171,21 +171,13 @@
                       :class="getMetricColour(calculateSubmissionImplicitMood(submission))"
                       class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 font-serif"
                     >
-                      {{
-                        calculateSubmissionImplicitMood(submission)
-                          ? `${calculateSubmissionImplicitMood(submission)}%`
-                          : 'N/A'
-                      }}
+                      {{ `${calculateSubmissionImplicitMood(submission) || 0}%` }}
                     </td>
                     <td
                       :class="getMetricColour(calculateSubmissionUrgency(submission))"
                       class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
                     >
-                      {{
-                        calculateSubmissionUrgency(submission)
-                          ? `${calculateSubmissionUrgency(submission)}%`
-                          : 'N/A'
-                      }}
+                      {{ `${calculateSubmissionUrgency(submission) || 0}%` }}
                     </td>
                   </tr>
                 </tbody>

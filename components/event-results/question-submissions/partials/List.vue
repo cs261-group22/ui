@@ -78,18 +78,14 @@
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
               :class="getMetricColour(calculateQuestionMood(question))"
             >
-              {{ calculateQuestionMood(question) ? `${calculateQuestionMood(question)}%` : 'N/A' }}
+              {{ `${calculateQuestionMood(question) || 0}%` }}
             </td>
 
             <td
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
               :class="getMetricColour(calculateQuestionUrgency(question))"
             >
-              {{
-                calculateQuestionUrgency(question)
-                  ? `${calculateQuestionUrgency(question)}%`
-                  : 'N/A'
-              }}
+              {{ `${calculateQuestionUrgency(question) || 0}%` }}
             </td>
           </tr>
         </tbody>

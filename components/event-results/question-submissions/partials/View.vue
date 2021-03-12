@@ -76,14 +76,14 @@
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
               :class="getMetricColour(getScaledMood(response))"
             >
-              {{ getScaledMood(response) ? `${getScaledMood(response)}%` : 'N/A' }}
+              {{ `${getScaledMood(response) || 0}%` }}
             </td>
 
             <td
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
               :class="getMetricColour(getScaledUrgency(response))"
             >
-              {{ getScaledUrgency(response) ? `${getScaledUrgency(response)}%` : 'N/A' }}
+              {{ `${getScaledUrgency(response) || 0}%` }}
             </td>
           </tr>
         </tbody>

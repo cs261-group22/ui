@@ -86,24 +86,16 @@
 
             <td
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
-              :class="getMetricColour(calculateSubmissionImplicitMood(session))"
+              :class="getMetricColour(calculateSubmissionImplicitMood(session) || 0)"
             >
-              {{
-                calculateSubmissionImplicitMood(session)
-                  ? `${calculateSubmissionImplicitMood(session)}%`
-                  : 'N/A'
-              }}
+              {{ `${calculateSubmissionImplicitMood(session) || 0}%` }}
             </td>
 
             <td
               class="px-6 align-middle text-xs whitespace-no-wrap p-4 font-serif"
-              :class="getMetricColour(calculateSubmissionUrgency(session))"
+              :class="getMetricColour(calculateSubmissionUrgency(session) || 0)"
             >
-              {{
-                calculateSubmissionUrgency(session)
-                  ? `${calculateSubmissionUrgency(session)}%`
-                  : 'N/A'
-              }}
+              {{ `${calculateSubmissionUrgency(session) || 0}%` }}
             </td>
           </tr>
         </tbody>
