@@ -271,7 +271,15 @@ export class ResultsMixin extends Vue {
       });
     }
 
-    return subjects.sort((a, b) => b.occurrences - a.occurrences).slice(0, 5);
+    const personSet: Set<string> = new Set();
+    this.popularPersons(submissions).forEach((person) =>
+      personSet.add(person.person.toLowerCase()),
+    );
+
+    return subjects
+      .filter((subject) => !personSet.has(subject.subject.toLowerCase()))
+      .sort((a, b) => b.occurrences - a.occurrences)
+      .slice(0, 5);
   }
 
   scaleResponses(data: any[]) {
