@@ -308,7 +308,7 @@ export default class Events extends Vue {
 
   formatDate(date: string) {
     if (!date) {
-      return 'Not set'
+      return 'Not set';
     }
 
     const dateObject = new Date(date);
