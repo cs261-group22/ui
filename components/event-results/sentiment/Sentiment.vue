@@ -403,7 +403,7 @@ export default class Sentiment extends mixins(UserMixin, ResultsMixin) {
             data: this.scaleResponses(
               this.submissions.map((submission) => {
                 return {
-                  x: submission.started_at,
+                  x: submission.updated_at,
                   y: submission.mood,
                 };
               }),
@@ -419,7 +419,7 @@ export default class Sentiment extends mixins(UserMixin, ResultsMixin) {
             data: this.scaleResponses(
               this.submissions.map((submission) => {
                 return {
-                  x: submission.started_at,
+                  x: submission.updated_at,
                   y: this.calculateSubmissionImplicitMood(submission),
                 };
               }),
@@ -520,7 +520,7 @@ export default class Sentiment extends mixins(UserMixin, ResultsMixin) {
                 .filter((submission) => this.calculateSubmissionUrgency(submission))
                 .map((submission) => {
                   return {
-                    x: submission.started_at,
+                    x: submission.updated_at,
                     y: this.calculateSubmissionUrgency(submission),
                   };
                 }),

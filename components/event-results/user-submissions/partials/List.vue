@@ -74,7 +74,7 @@
             </th>
 
             <td class="px-6 align-middle text-xs whitespace-no-wrap p-4">
-              {{ moment(session.started_at).format('MMMM Do YYYY [at] h:mma') }}
+              {{ moment(session.updated_at).format('MMMM Do YYYY [at] h:mma') }}
             </td>
 
             <td
@@ -151,11 +151,11 @@ export default class SubmissionList extends ResultsMixin {
     switch (this.sortingOption) {
       case SortingOption.SUBMISSION_DATE:
         return sessions.sort((a, b) => {
-          if (a.started_at === b.started_at) {
+          if (a.updated_at === b.updated_at) {
             return 0;
           }
 
-          return (a.started_at as Date) < (b.started_at as Date) ? 1 : -1;
+          return (a.updated_at as Date) < (b.updated_at as Date) ? 1 : -1;
         });
 
       case SortingOption.USER_NAME:

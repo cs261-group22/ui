@@ -10,5 +10,6 @@ export interface Session {
   event?: Event;
   responses?: Response[];
   started_at?: Date;
+  updated_at?: Date;
   is_submitted: boolean;
 }

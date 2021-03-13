@@ -50,7 +50,7 @@ export default class Summary extends ResultsMixin {
               data: this.scaleResponses(
                 submissions.map((submission) => {
                   return {
-                    x: submission.started_at,
+                    x: submission.updated_at,
                     y: submission.mood,
                   };
                 }),
@@ -67,7 +67,7 @@ export default class Summary extends ResultsMixin {
               data: this.scaleResponses(
                 submissions.map((submission) => {
                   return {
-                    x: submission.started_at,
+                    x: submission.updated_at,
                     y: this.calculateSubmissionImplicitMood(submission),
                   };
                 }),
@@ -83,7 +83,7 @@ export default class Summary extends ResultsMixin {
               data: this.scaleResponses(
                 submissions.map((submission) => {
                   return {
-                    x: submission.started_at,
+                    x: submission.updated_at,
                     y: this.calculateSubmissionUrgency(submission) || 0,
                   };
                 }),

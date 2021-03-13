@@ -159,7 +159,7 @@
                     <td
                       class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"
                     >
-                      {{ moment(submission.started_at).format('MMMM Do YYYY [at] h:mma') }}
+                      {{ moment(submission.updated_at).format('MMMM Do YYYY [at] h:mma') }}
                     </td>
                     <td
                       :class="getMetricColour(submission.mood)"
@@ -329,11 +329,11 @@ export default class Summary extends mixins(UserMixin, ResultsMixin) {
   get recentSubmissions() {
     return this.submissionsProcessed(this.event)
       .sort((a, b) => {
-        if (a.started_at === b.started_at) {
+        if (a.updated_at === b.updated_at) {
           return 0;
         }
 
-        return (a.started_at as Date) < (b.started_at as Date) ? 1 : -1;
+        return (a.updated_at as Date) < (b.updated_at as Date) ? 1 : -1;
       })
       .slice(0, 5);
   }

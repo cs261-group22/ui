@@ -27,13 +27,13 @@
               </p>
 
               <p class="block lg:hidden italic text-sm">
-                Submitted on {{ moment(submission.started_at).format('MMMM Do YYYY [at] h:mma') }}
+                Submitted on {{ moment(submission.updated_at).format('MMMM Do YYYY [at] h:mma') }}
               </p>
             </div>
           </div>
 
           <p class="hidden lg:block italic text-sm">
-            Submitted on {{ moment(submission.started_at).format('MMMM Do YYYY [at] h:mma') }}
+            Submitted on {{ moment(submission.updated_at).format('MMMM Do YYYY [at] h:mma') }}
           </p>
         </div>
       </div>
