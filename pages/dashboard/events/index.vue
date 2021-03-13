@@ -307,6 +307,10 @@ export default class Events extends Vue {
   }
 
   formatDate(date: string) {
+    if (!date) {
+      return 'Not set'
+    }
+
     const dateObject = new Date(date);
 
     return dateObject.toLocaleString();
