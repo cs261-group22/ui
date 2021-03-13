@@ -143,7 +143,7 @@ export default class QuestionList extends ResultsMixin {
 
     switch (this.sortingOption) {
       case SortingOption.ORDER:
-        return questions.sort((a, b) => ((a.order as number) = b.order as number));
+        return questions.sort((a, b) => (a.order as number) - (b.order as number));
 
       case SortingOption.PROMPT:
         return questions.sort((a, b) =>
