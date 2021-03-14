@@ -19,13 +19,11 @@ export default class ErrorsModule extends VuexModule {
 
   @Action
   flashError(payload: string) {
-    const expiry = new Date();
-    expiry.setSeconds(expiry.getSeconds() + 10);
-
     this.context.commit('setErrorMessage', payload);
 
     const originalMessage = payload.valueOf();
 
+    // Hide the message after 7.5s, unless the message is now different
     setTimeout(() => {
       if (this.errorMessage === originalMessage) {
         this.context.commit('setErrorMessage', null);
