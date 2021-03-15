@@ -1,4 +1,8 @@
 ## About
+This readme is written with the intention of the reader having a baseline understanding of modern web application development.
+The [Vue.js](https://vuejs.org/) documentation is a good starting place if this is not the case.
+
+An overview of the application:
 * FeedBank UI is a standard *Nuxt / Vue.js* application written in *TypeScript* and styled with *Tailwind CSS*
 * It communicates with the FeedBank API through HTTP requests and websockets.
 * Setup should therefore be routine for those familiar with *Vue.js/Nuxt*.
@@ -9,7 +13,7 @@ The `docker-compose` configuration in the API repository has a predefined `ui` s
 * Set correct environment variables
 * Serve the application at `localhost`
 
-This requires this repository to be symbolic linked into the root of the API repository as `ui`.
+This requires this repository to be symlinked into the root of the API repository as `ui`.
 Please see the `README.md` in the API repository for more information.
 
 ## Development prerequisites (Local)
@@ -65,4 +69,4 @@ The directory structure for the application is the same as a standard *Nuxt* ins
 
 ## Further Reading
 
-For detailed explanation on how things work, refer to the [Nuxt.js docs](https://nuxtjs.org).
+For a detailed explanation on how things work, refer to the [Nuxt.js docs](https://nuxtjs.org).
