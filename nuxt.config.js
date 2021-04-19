@@ -111,9 +111,8 @@ export default {
   build: {},
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
-    NUXT_ENV_WS_HOST: process.env.NUXT_ENV_WS_HOST,
-    NUXT_ENV_WS_PORT: process.env.NUXT_ENV_WS_PORT,
     NUXT_ENV_API_ROUTE: process.env.NUXT_ENV_API_ROUTE,
+    NUXT_ENV_PUSHER_KEY: process.env.NUXT_ENV_PUSHER_KEY,
     NUXT_ENV_RECAPTCHA_SITE_KEY: process.env.NUXT_ENV_RECAPTCHA_SITE_KEY,
   },
 
@@ -123,10 +122,7 @@ export default {
   // Laravel echo config (https://github.com/nuxt-community/laravel-echo)
   echo: {
     broadcaster: 'pusher',
-    key: 'cs261-websocket-key',
-    wsHost: process.env.NUXT_ENV_WS_HOST,
-    wsPort: process.env.NUXT_ENV_WS_PORT,
-    wssPort: process.env.NUXT_ENV_WS_PORT,
+    key: process.env.NUXT_ENV_PUSHER_KEY,
     disableStats: false,
     encrypted: true,
     authModule: true,
