@@ -60,15 +60,8 @@ jobs:
           NUXT_ENV_WS_PORT: 443
           NODE_ENV: production
 
-      - name: Copy deployment configuration
-        run: cp ./.appengine/app.yaml ./dist
-
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
-
-      - name: Deploy to App Engine
-        run: gcloud app deploy --version 1 --quiet --promote ./dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
