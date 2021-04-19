@@ -20,7 +20,7 @@
           v-model="surveyCode"
           type="text"
           name="event_code"
-          placeholder="e.g a1ZnL"
+          placeholder="Enter event code"
           class="flex-grow focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md mr-4"
         />
 
@@ -34,7 +34,7 @@
       </div>
 
       <Portal to="landing-footer">
-        <div class="flex flex-col items-center lg:flex-row">
+        <div class="flex flex-col items-center lg:flex-row mb-16">
           <div class="w-full lg:w-1/2 lg:mr-12 mb-8 lg:mb-0">
             <p class="text-3xl font-bold font-serif mb-2">FeedBank for Event Hosts</p>
 
@@ -52,8 +52,8 @@
             </ul>
 
             <p class="text-lg">
-              <span class="font-bold">Interested?</span> Ask your team leader to send you an invite
-              to get started.
+              <span class="font-bold">Interested?</span> Enter event code
+              <span class="italic">xodmEK</span> to view an example event.
             </p>
           </div>
 
