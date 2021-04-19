@@ -127,6 +127,7 @@ export default {
     encrypted: true,
     authModule: true,
     connectOnLogin: true,
+    cluster: 'eu',
     authEndpoint: process.env.BASE_URL + '/broadcasting/auth',
   },
 
